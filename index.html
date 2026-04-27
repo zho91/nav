@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>极简智航 - 你的高效起点</title>
+    <style>
+        :root {
+            --primary: #c44dff;
+            --primary-glow: rgba(196, 77, 255, 0.3);
+            --bg: #0f172a;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+            --glass: blur(12px) saturate(160%);
+        }
+
+        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+        
+        body { 
+            background: radial-gradient(circle at 50% -20%, #1e1b4b, var(--bg));
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* --- 头部设计：功能性替代娱乐性 --- */
+        .header { text-align:center; padding: 40px 20px 20px; }
+        .header h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; }
+        .header p { color: var(--text-dim); font-size: 13px; }
+
+        /* --- 搜索系统：Sticky 置顶 + 毛玻璃 --- */
+        .search-container {
+            position: sticky; top: 0; z-index: 100;
+            padding: 15px 16px;
+            background: linear-gradient(to bottom, var(--bg) 60%, transparent);
+            backdrop-filter: var(--glass);
+        }
+        .search-wrap {
+            max-width: 600px; margin: 0 auto; position: relative;
+        }
+        .search-wrap input {
+            width:100%; background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; padding: 12px 15px 12px 40px;
+            color: white; font-size: 15px; transition: all 0.3s;
+        }
+        .search-wrap input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+            background: rgba(30, 41, 59, 0.9);
+        }
+        .search-icon { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); opacity: 0.5; }
+
+        /* --- 核心组件：常用/推荐 (替代原Beauty) --- */
+        .featured-banner {
+            margin: 10px 16px 20px;
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            border-radius: 16px; padding: 20px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .featured-info h3 { font-size: 18px; margin-bottom: 4px; }
+        .featured-info p { font-size: 12px; opacity: 0.9; }
+        .featured-badge { background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 8px; font-size: 11px; }
+
+        /* --- 分类导航 --- */
+        .pills {
+            display: flex; gap: 8px; overflow-x: auto; padding: 0 16px 15px;
+            scrollbar-width: none; -ms-overflow-style: none;
+        }
+        .pills::-webkit-scrollbar { display: none; }
+        .pill {
+            flex-shrink: 0; padding: 8px 16px; border-radius: 10px;
+            font-size: 13px; font-weight: 500; cursor: pointer;
+            background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-dim); transition: all 0.2s;
+        }
+        .pill.active { background: var(--primary); color: white; border-color: var(--primary); }
+
+        /* --- 站点网格 --- */
+        .section { margin: 0 16px 30px; }
+        .section-title { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; font-weight: 700; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+        
+        .site-card {
+            background: var(--card-bg); border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 14px; padding: 12px; text-decoration: none;
+            display: flex; align-items: center; gap: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .site-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+        .site-card:active { transform: scale(0.96); }
+
+        .site-icon {
+            width: 32px; height: 32px; background: rgba(255,255,255,0.05);
+            border-radius: 8px; display: flex; align-items: center; justify-content: center;
+            font-size: 18px; flex-shrink: 0;
+        }
+        .site-icon img { width: 20px; height: 20px; object-fit: contain; }
+        
+        .site-info { overflow: hidden; }
+        .site-name { color: var(--text-main); font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+        .site-desc { color: var(--text-dim); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        /* 搜索高亮 */
+        .hl { color: var(--primary); font-weight: bold; font-style: normal; text-decoration: underline; }
+        
+        /* 响应式适配 */
+        @media (min-width: 768px) {
+            .grid { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+            .header { padding: 60px 20px 40px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>PRO NAV</h1>
+    <p>极致、纯净、高效的导航中心</p>
+</div>
+
+<div class="search-container">
+    <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="全网搜索 / 站内直达...">
+    </div>
+</div>
+
+<div class="featured-banner">
+    <div class="featured-info">
+        <div class="featured-badge">今日推荐</div>
+        <h3 id="recommendTitle">Claude 3.5 Sonnet</h3>
+        <p id="recommendDesc">目前最强大的智能 AI 助手之一</p>
+    </div>
+    <div style="font-size: 40px;">🚀</div>
+</div>
+
+<div class="pills" id="pills"></div>
+<div id="sitesContainer" class="container" style="padding-bottom: 50px;"></div>
+
+<script>
+/**
+ * 1. 数据结构：支持 ID 唯一化，方便统计点击量
+ */
+const categories = [
+    { name: "常用", color: "#6366f1", sites: [] }, // 动态填充
+    { name: "🤖 AI 工具", color: "#a855f7", sites: [
+        { id: "claude", name: "Claude", url: "https://claude.ai", icon: "🤖", desc: "Anthropic 高智能 AI" },
+        { id: "chatgpt", name: "ChatGPT", url: "https://chat.openai.com", icon: "💬", desc: "OpenAI 聊天 AI" },
+        { id: "midjourney", name: "Midjourney", url: "https://midjourney.com", icon: "🎨", desc: "AI 艺术绘画" }
+    ]},
+    { name: "💻 开发工具", color: "#3b82f6", sites: [
+        { id: "github", name: "GitHub", url: "https://github.com", icon: "🐙", desc: "代码托管平台" },
+        { id: "vercel", name: "Vercel", url: "https://vercel.com", icon: "▲", desc: "前端部署首选" }
+    ]}
+    // ... 其他分类
+];
+
+let activeCat = "全部";
+let clickStats = JSON.parse(localStorage.getItem('nav_stats') || '{}');
+
+/**
+ * 2. 核心：带缓存和防抖的渲染系统
+ */
+function init() {
+    renderPills();
+    renderSites();
+    updateRecommend();
+    
+    // 现代事件监听
+    document.getElementById('searchInput').addEventListener('input', debounce(renderSites, 150));
+    
+    // 页面可见性管理：优化性能
+    document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) updateRecommend();
+    });
+}
+
+function renderPills() {
+    const all = ["全部", ...categories.map(c => c.name)];
+    const html = all.map(n => `
+        <button class="pill ${n === activeCat ? 'active' : ''}" data-name="${n}">${n}</button>
+    `).join('');
+    const container = document.getElementById('pills');
+    container.innerHTML = html;
+    
+    // 事件代理：避免为每个按钮绑定监听
+    container.onclick = (e) => {
+        if (e.target.classList.contains('pill')) {
+            activeCat = e.target.dataset.name;
+            renderPills();
+            renderSites();
+        }
+    };
+}
+
+function renderSites() {
+    const q = document.getElementById('searchInput').value.trim().toLowerCase();
+    const container = document.getElementById('sitesContainer');
+    
+    // 过滤逻辑
+    const filtered = categories.map(cat => ({
+        ...cat,
+        sites: cat.sites.filter(s => 
+            !q || s.name.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q)
+        )
+    })).filter(cat => cat.sites.length > 0 && (activeCat === "全部" || cat.name === activeCat));
+
+    if (filtered.length === 0) {
+        container.innerHTML = `<div style="text-align:center; padding:50px; opacity:0.5;">没有找到匹配的站点</div>`;
+        return;
+    }
+
+    // 使用 DocumentFragment 或一次性生成的字符串
+    const html = filtered.map(cat => `
+        <div class="section">
+            <div class="section-title">${cat.name}</div>
+            <div class="grid">
+                ${cat.sites.map(s => {
+                    const name = q ? s.name.replace(new RegExp(`(${q})`, 'gi'), '<em class="hl">$1</em>') : s.name;
+                    return `
+                        <a href="${s.url}" target="_blank" class="site-card" data-id="${s.id}">
+                            <div class="site-icon">${getIcon(s.url, s.icon)}</div>
+                            <div class="site-info">
+                                <div class="site-name">${name}</div>
+                                <div class="site-desc">${s.desc}</div>
+                            </div>
+                        </a>
+                    `;
+                }).join('')}
+            </div>
+        </div>
+    `).join('');
+    
+    container.innerHTML = html;
+
+    // 绑定点击统计
+    container.querySelectorAll('.site-card').forEach(card => {
+        card.onclick = () => recordClick(card.dataset.id);
+    });
+}
+
+/**
+ * 3. 增强功能：图标自动抓取 + 点击量统计
+ */
+function getIcon(url, emoji) {
+    const domain = new URL(url).hostname;
+    // 使用 Google API 自动获取图标，失败降级为 Emoji
+    return `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" onerror="this.outerHTML='${emoji}'">`;
+}
+
+function recordClick(id) {
+    clickStats[id] = (clickStats[id] || 0) + 1;
+    localStorage.setItem('nav_stats', JSON.stringify(clickStats));
+}
+
+function updateRecommend() {
+    // 模拟每日更新逻辑：从数据中随机或根据点击最高推荐
+    const allSites = categories.flatMap(c => c.sites);
+    const random = allSites[Math.floor(Math.random() * allSites.length)];
+    document.getElementById('recommendTitle').textContent = random.name;
+    document.getElementById('recommendDesc').textContent = random.desc;
+}
+
+// 防抖函数：性能关键
+function debounce(fn, delay) {
+    let timer;
+    return function() {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, arguments), delay);
+    }
+}
+
+init();
+</script>
+</body>
+</html>
