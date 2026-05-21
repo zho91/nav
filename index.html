@@ -184,7 +184,9 @@ em.hl{font-style:normal;color:#f472b6;background:rgba(244,114,182,.12);padding:0
 .bmdel:hover{background:rgba(239,68,68,.15);color:var(--rd)}
 .bmempty{text-align:center;padding:20px;color:var(--dim);font-size:13px}
 /* fabs */
-.fabs{position:fixed;bottom:28px;right:22px;display:flex;flex-direction:column;gap:10px;z-index:400}
+.fabs{position:fixed;bottom:28px;right:22px;display:flex;flex-direction:column;gap:10px;z-index:400;touch-action:none;user-select:none}
+.fabs.dragging .fab1{animation:none;cursor:grabbing}
+.fab1{cursor:grab}
 .fab{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;transition:.25s cubic-bezier(.34,1.56,.64,1);border:none}
 .fab1{background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;position:relative;box-shadow:0 4px 20px rgba(139,92,246,.45),0 0 0 0 rgba(139,92,246,.3)}
 .fab1:hover{transform:scale(1.12);box-shadow:0 8px 32px rgba(139,92,246,.6),0 0 0 6px rgba(139,92,246,.12)}
@@ -1398,6 +1400,83 @@ function init(){
 }
 
 window.goTop=function(){window.scrollTo({top:0,behavior:'smooth'});};
+
+// ── 可拖动悬浮按钮 ──────────────────────────────────
+(function(){
+  var el=document.querySelector('.fabs');
+  var fab1=el.querySelector('.fab1');
+  var isDragging=false,moved=false;
+  var sx,sy,sl,st;
+
+  function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+
+  function applyPos(x,y){
+    var w=window.innerWidth,h=window.innerHeight;
+    x=clamp(x,8,w-el.offsetWidth-8);
+    y=clamp(y,8,h-el.offsetHeight-8);
+    el.style.left=x+'px';
+    el.style.top=y+'px';
+    el.style.right='auto';
+    el.style.bottom='auto';
+  }
+
+  function startDrag(cx,cy){
+    var r=el.getBoundingClientRect();
+    sx=cx;sy=cy;sl=r.left;st=r.top;
+    isDragging=true;moved=false;
+    el.classList.add('dragging');
+    el.style.transition='none';
+  }
+
+  function moveDrag(cx,cy){
+    if(!isDragging)return;
+    if(Math.abs(cx-sx)>4||Math.abs(cy-sy)>4)moved=true;
+    if(moved)applyPos(sl+(cx-sx),st+(cy-sy));
+  }
+
+  function endDrag(){
+    if(!isDragging)return;
+    isDragging=false;
+    el.classList.remove('dragging');
+    el.style.transition='';
+    if(moved){
+      var r=el.getBoundingClientRect();
+      sl('fabXY',JSON.stringify({x:r.left,y:r.top}));
+    }
+  }
+
+  // 鼠标
+  fab1.addEventListener('mousedown',function(e){
+    startDrag(e.clientX,e.clientY);
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove',function(e){moveDrag(e.clientX,e.clientY);});
+  document.addEventListener('mouseup',function(e){
+    if(isDragging){endDrag();if(moved){e.stopPropagation();}}
+  });
+
+  // 触摸
+  fab1.addEventListener('touchstart',function(e){
+    var t=e.touches[0];startDrag(t.clientX,t.clientY);
+  },{passive:true});
+  fab1.addEventListener('touchmove',function(e){
+    var t=e.touches[0];moveDrag(t.clientX,t.clientY);
+    if(moved)e.preventDefault();
+  },{passive:false});
+  fab1.addEventListener('touchend',function(e){
+    endDrag();
+    if(moved)e.preventDefault();
+  });
+
+  // 拖动结束不触发 click
+  fab1.addEventListener('click',function(e){
+    if(moved){e.stopPropagation();moved=false;}
+  },true);
+
+  // 恢复上次位置
+  var saved=gl('fabXY');
+  if(saved){try{var p=JSON.parse(saved);applyPos(p.x,p.y);}catch(e2){}}
+})();
 
 // DOM 就绪后初始化
 if(document.readyState==='loading'){
