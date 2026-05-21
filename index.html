@@ -17,10 +17,10 @@
         }
 
         * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-        
-        body { 
+
+        body {
             background: var(--bg);
-            background-image: 
+            background-image:
                 radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
                 radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.1) 0px, transparent 50%);
             min-height: 100vh;
@@ -29,7 +29,6 @@
             line-height: 1.5;
         }
 
-        /* 顶部数字时钟 */
         .top-bar {
             padding: 20px 20px 0;
             display: flex;
@@ -39,21 +38,22 @@
             margin: 0 auto;
         }
         #clock { font-size: 14px; font-weight: 500; color: var(--text-dim); }
+        #date-str { font-size: 12px; color: var(--text-dim); opacity: 0.7; }
 
-        .header { text-align:center; padding: 30px 20px; }
-        .header h1 { 
-            font-size: 32px; font-weight: 800; 
+        .header { text-align:center; padding: 24px 20px 10px; }
+        .header h1 {
+            font-size: 32px; font-weight: 800;
             background: linear-gradient(to right, #a78bfa, #f472b6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
+        .header p { font-size: 13px; color: var(--text-dim); }
 
-        /* 搜索框升级 */
         .search-container {
             position: sticky; top: 0; z-index: 100;
-            padding: 10px 16px 20px;
-            background: linear-gradient(to bottom, var(--bg) 50%, transparent);
+            padding: 10px 16px 16px;
+            background: linear-gradient(to bottom, var(--bg) 60%, transparent);
             backdrop-filter: var(--glass);
         }
         .search-wrap { max-width: 650px; margin: 0 auto; position: relative; }
@@ -70,9 +70,18 @@
             background: rgba(17, 24, 39, 1);
             transform: translateY(-1px);
         }
+        .search-engine-bar {
+            max-width: 650px; margin: 8px auto 0;
+            display: flex; gap: 8px; justify-content: center;
+        }
+        .se-btn {
+            font-size: 12px; padding: 4px 12px; border-radius: 8px;
+            background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);
+            color: var(--text-dim); cursor: pointer; transition: 0.2s;
+        }
+        .se-btn.active, .se-btn:hover { background: var(--primary); color: white; border-color: var(--primary); }
         .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); opacity: 0.6; }
 
-        /* 快捷分类 */
         .pills {
             display: flex; gap: 10px; overflow-x: auto; padding: 10px 16px 20px;
             max-width: 1200px; margin: 0 auto;
@@ -80,40 +89,60 @@
         }
         .pills::-webkit-scrollbar { display: none; }
         .pill {
-            flex-shrink: 0; padding: 10px 20px; border-radius: 12px;
-            font-size: 14px; font-weight: 600; cursor: pointer;
+            flex-shrink: 0; padding: 8px 18px; border-radius: 12px;
+            font-size: 13px; font-weight: 600; cursor: pointer;
             background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05);
             color: var(--text-dim); transition: 0.3s;
         }
         .pill.active { background: var(--primary); color: white; box-shadow: 0 4px 15px var(--primary-glow); }
 
-        /* 卡片布局 */
         .main-content { max-width: 1200px; margin: 0 auto; padding: 0 16px 100px; }
-        .section-title { font-size: 14px; color: var(--primary); font-weight: 700; margin: 25px 0 15px 4px; text-transform: uppercase; letter-spacing: 1px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
-        
+        .section-title { font-size: 13px; color: var(--primary); font-weight: 700; margin: 28px 0 14px 4px; text-transform: uppercase; letter-spacing: 1px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 12px; }
+
         .site-card {
             background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05);
             border-radius: 18px; padding: 16px; text-decoration: none;
             display: flex; flex-direction: column; align-items: flex-start;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; overflow: hidden;
         }
+        .site-card::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, transparent 60%, rgba(139,92,246,0.06));
+            opacity: 0; transition: 0.35s;
+        }
+        .site-card:hover::before { opacity: 1; }
         .site-card:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-6px) scale(1.02);
-            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px) scale(1.02);
+            border-color: rgba(139,92,246,0.5);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
         }
         .site-icon {
             width: 44px; height: 44px; background: rgba(255,255,255,0.05);
             border-radius: 12px; display: flex; align-items: center; justify-content: center;
-            font-size: 24px; margin-bottom: 12px;
+            font-size: 22px; margin-bottom: 12px;
         }
-        .site-icon img { width: 28px; height: 28px; object-fit: contain; }
-        
-        .site-name { color: var(--text-main); font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-        .site-desc { color: var(--text-dim); font-size: 12px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .site-icon img { width: 28px; height: 28px; object-fit: contain; border-radius: 4px; }
+
+        .site-name { color: var(--text-main); font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+        .site-desc { color: var(--text-dim); font-size: 11px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+        .tag {
+            font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px;
+            position: absolute; top: 10px; right: 10px; letter-spacing: 0.5px;
+        }
+        .tag-new { background: rgba(16,185,129,0.2); color: #34d399; border: 1px solid rgba(52,211,153,0.3); }
+        .tag-hot { background: rgba(239,68,68,0.2); color: #f87171; border: 1px solid rgba(248,113,113,0.3); }
+        .tag-free { background: rgba(59,130,246,0.2); color: #60a5fa; border: 1px solid rgba(96,165,250,0.3); }
 
         .hl { color: #f472b6; font-weight: bold; background: rgba(244, 114, 182, 0.1); padding: 0 2px; border-radius: 4px; }
+
+        .stats-bar {
+            max-width: 1200px; margin: 0 auto 4px; padding: 0 16px;
+            font-size: 12px; color: var(--text-dim); text-align: right;
+        }
 
         @media (max-width: 480px) {
             .grid { grid-template-columns: repeat(2, 1fr); }
@@ -124,50 +153,170 @@
 <body>
 
 <div class="top-bar">
-    <div id="clock">00:00:00</div>
-    <div style="font-size: 12px; opacity: 0.5;">v2.0 Pro</div>
+    <div>
+        <div id="clock">00:00:00</div>
+        <div id="date-str"></div>
+    </div>
+    <div style="font-size: 12px; opacity: 0.5;">v3.0 Pro · <span id="site-count"></span></div>
 </div>
 
 <div class="header">
     <h1>智航 PRO</h1>
+    <p>你的高效起点 · 聚合精选全网利器</p>
 </div>
 
 <div class="search-container">
     <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input type="text" id="searchInput" placeholder="搜索站内，按回车搜索全网...">
+        <input type="text" id="searchInput" placeholder="搜索站内，按回车跳转搜索...">
     </div>
+    <div class="search-engine-bar" id="seBar"></div>
 </div>
 
 <div class="pills" id="pills"></div>
-
+<div class="stats-bar" id="statsBar"></div>
 <div class="main-content" id="sitesContainer"></div>
 
 <script>
+const ENGINES = [
+    { name: "Google", url: "https://www.google.com/search?q=" },
+    { name: "Bing", url: "https://www.bing.com/search?q=" },
+    { name: "百度", url: "https://www.baidu.com/s?wd=" },
+    { name: "GitHub", url: "https://github.com/search?q=" },
+    { name: "YouTube", url: "https://www.youtube.com/results?search_query=" },
+];
+let activeEngine = 0;
+
 const categories = [
-    { name: "常用", sites: [
-        { id: "google", name: "Google", url: "https://www.google.com", icon: "🔍", desc: "全球最大的搜索引擎" },
-        { id: "github", name: "GitHub", url: "https://github.com", icon: "🐙", desc: "程序员的家园" },
-        { id: "youtube", name: "YouTube", url: "https://www.youtube.com", icon: "📺", desc: "全球视频盛宴" },
-        { id: "bilibili", name: "Bilibili", url: "https://www.bilibili.com", icon: "📺", desc: "国内领先视频社区" }
+    { name: "⭐ 常用", sites: [
+        { name: "Google", url: "https://www.google.com", icon: "🔍", desc: "全球最大搜索引擎" },
+        { name: "GitHub", url: "https://github.com", icon: "🐙", desc: "程序员的代码圣地" },
+        { name: "YouTube", url: "https://www.youtube.com", icon: "📺", desc: "全球最大视频平台" },
+        { name: "Bilibili", url: "https://www.bilibili.com", icon: "📺", desc: "国内领先视频社区" },
+        { name: "Wikipedia", url: "https://zh.wikipedia.org", icon: "📖", desc: "全球最大的百科全书" },
+        { name: "Reddit", url: "https://www.reddit.com", icon: "🤖", desc: "互联网头版新闻聚合" },
+        { name: "X (Twitter)", url: "https://x.com", icon: "✖️", desc: "实时全球信息流" },
+        { name: "Gmail", url: "https://mail.google.com", icon: "📧", desc: "Google 邮件服务" },
     ]},
     { name: "🤖 AI 工具", sites: [
-        { id: "chatgpt", name: "ChatGPT", url: "https://chat.openai.com", icon: "💬", desc: "OpenAI 智能大脑" },
-        { id: "claude", name: "Claude", url: "https://claude.ai", icon: "🤖", desc: "最懂人心的 AI 助手" },
-        { id: "midjourney", name: "Midjourney", url: "https://www.midjourney.com", icon: "🎨", desc: "最顶尖的 AI 绘图" },
-        { id: "perplex", name: "Perplexity", url: "https://www.perplexity.ai", icon: "🔍", desc: "AI 时代的搜索方式" }
+        { name: "ChatGPT", url: "https://chat.openai.com", icon: "💬", desc: "OpenAI 最强语言模型", tag: "hot" },
+        { name: "Claude", url: "https://claude.ai", icon: "🤖", desc: "Anthropic 旗舰 AI 助手", tag: "hot" },
+        { name: "Gemini", url: "https://gemini.google.com", icon: "♊", desc: "Google 多模态 AI" },
+        { name: "Grok", url: "https://grok.com", icon: "🌀", desc: "xAI 出品实时推理模型" },
+        { name: "Perplexity", url: "https://www.perplexity.ai", icon: "🔍", desc: "AI 驱动的搜索引擎" },
+        { name: "Poe", url: "https://poe.com", icon: "🐦", desc: "聚合多种 AI 模型对话" },
+        { name: "Mistral", url: "https://chat.mistral.ai", icon: "💨", desc: "欧洲开源 AI 先锋", tag: "new" },
+        { name: "DeepSeek", url: "https://chat.deepseek.com", icon: "🐋", desc: "深度求索旗舰大模型", tag: "hot" },
+        { name: "Kimi", url: "https://kimi.moonshot.cn", icon: "🌙", desc: "月之暗面长文本 AI" },
+        { name: "通义千问", url: "https://tongyi.aliyun.com", icon: "🌟", desc: "阿里云大语言模型" },
+        { name: "文心一言", url: "https://yiyan.baidu.com", icon: "🖋️", desc: "百度自研 AI 创作助手" },
+        { name: "智谱清言", url: "https://chatglm.cn", icon: "🧠", desc: "清华系 ChatGLM 对话" },
     ]},
-    { name: "💻 开发设计", sites: [
-        { id: "vercel", name: "Vercel", url: "https://vercel.com", icon: "▲", desc: "极速网页部署" },
-        { id: "figma", name: "Figma", url: "https://www.figma.com", icon: "🎨", desc: "专业协作设计工具" },
-        { id: "stackoverflow", name: "StackOverflow", url: "https://stackoverflow.com", icon: "💻", desc: "开发者问答社区" },
-        { id: "juejin", name: "稀土掘金", url: "https://juejin.cn", icon: "💎", desc: "开发者技术社区" }
+    { name: "🎨 AI 创作", sites: [
+        { name: "Midjourney", url: "https://www.midjourney.com", icon: "🎨", desc: "顶尖 AI 绘图工具" },
+        { name: "Stable Diffusion", url: "https://civitai.com", icon: "🖼️", desc: "开源 AI 图像社区" },
+        { name: "DALL·E", url: "https://labs.openai.com", icon: "🖌️", desc: "OpenAI 文生图工具" },
+        { name: "Runway", url: "https://runwayml.com", icon: "🎬", desc: "AI 视频生成工具", tag: "hot" },
+        { name: "Suno", url: "https://suno.com", icon: "🎵", desc: "AI 音乐创作平台", tag: "new" },
+        { name: "ElevenLabs", url: "https://elevenlabs.io", icon: "🔊", desc: "顶级 AI 语音克隆" },
+        { name: "Udio", url: "https://www.udio.com", icon: "🎶", desc: "AI 作曲生成平台" },
+        { name: "HeyGen", url: "https://www.heygen.com", icon: "🎭", desc: "AI 数字人视频生成" },
+        { name: "Canva", url: "https://www.canva.com", icon: "✏️", desc: "简单易用的图形设计" },
     ]},
-    { name: "🎬 摸鱼/灵感", sites: [
-        { id: "weibo", name: "微博", url: "https://weibo.com", icon: "👁️", desc: "实时热点早知道" },
-        { id: "douban", name: "豆瓣", url: "https://douban.com", icon: "📚", desc: "书影音的精神角落" },
-        { id: "producthunt", name: "ProductHunt", url: "https://www.producthunt.com", icon: "😺", desc: "发现最新有趣产品" }
-    ]}
+    { name: "💻 开发工具", sites: [
+        { name: "GitHub", url: "https://github.com", icon: "🐙", desc: "全球最大代码托管平台" },
+        { name: "GitLab", url: "https://gitlab.com", icon: "🦊", desc: "开源 DevOps 全生命周期" },
+        { name: "StackOverflow", url: "https://stackoverflow.com", icon: "💻", desc: "开发者 Q&A 圣地" },
+        { name: "MDN", url: "https://developer.mozilla.org", icon: "📘", desc: "最权威的 Web 文档" },
+        { name: "DevDocs", url: "https://devdocs.io", icon: "📚", desc: "离线 API 文档聚合" },
+        { name: "Can I Use", url: "https://caniuse.com", icon: "🌐", desc: "浏览器特性兼容查询" },
+        { name: "npm", url: "https://www.npmjs.com", icon: "📦", desc: "Node.js 包管理仓库" },
+        { name: "Regex101", url: "https://regex101.com", icon: "🔤", desc: "在线正则表达式调试" },
+        { name: "CodePen", url: "https://codepen.io", icon: "🖊️", desc: "前端代码在线演示" },
+        { name: "CodeSandbox", url: "https://codesandbox.io", icon: "📦", desc: "在线 IDE 快速原型" },
+        { name: "Replit", url: "https://replit.com", icon: "♾️", desc: "多语言在线编程环境" },
+        { name: "Ray.so", url: "https://ray.so", icon: "✨", desc: "代码截图美化工具" },
+    ]},
+    { name: "🚀 部署托管", sites: [
+        { name: "Vercel", url: "https://vercel.com", icon: "▲", desc: "前端极速部署首选" },
+        { name: "Netlify", url: "https://www.netlify.com", icon: "🌐", desc: "Jamstack 网站托管" },
+        { name: "Cloudflare", url: "https://www.cloudflare.com", icon: "☁️", desc: "全球 CDN 与安全防护" },
+        { name: "Railway", url: "https://railway.app", icon: "🚂", desc: "简洁的应用云部署", tag: "hot" },
+        { name: "Render", url: "https://render.com", icon: "🎯", desc: "全栈应用云平台" },
+        { name: "Fly.io", url: "https://fly.io", icon: "✈️", desc: "靠近用户的边缘部署" },
+        { name: "Supabase", url: "https://supabase.com", icon: "⚡", desc: "开源 Firebase 替代品" },
+        { name: "PlanetScale", url: "https://planetscale.com", icon: "🪐", desc: "无服务器 MySQL 数据库" },
+        { name: "Docker Hub", url: "https://hub.docker.com", icon: "🐳", desc: "容器镜像公共仓库" },
+    ]},
+    { name: "🎨 设计资源", sites: [
+        { name: "Figma", url: "https://www.figma.com", icon: "🎨", desc: "专业协作 UI 设计工具" },
+        { name: "Dribbble", url: "https://dribbble.com", icon: "🏀", desc: "设计师作品展示社区" },
+        { name: "Behance", url: "https://www.behance.net", icon: "🅱️", desc: "Adobe 创意作品平台" },
+        { name: "Unsplash", url: "https://unsplash.com", icon: "📸", desc: "高质量免费图库", tag: "free" },
+        { name: "Pexels", url: "https://www.pexels.com", icon: "🖼️", desc: "免费商用图片视频", tag: "free" },
+        { name: "Iconify", url: "https://iconify.design", icon: "🔵", desc: "海量开源图标合集" },
+        { name: "Coolors", url: "https://coolors.co", icon: "🎨", desc: "配色方案生成工具" },
+        { name: "Tailwind UI", url: "https://tailwindui.com", icon: "💨", desc: "高质量 Tailwind 组件" },
+        { name: "shadcn/ui", url: "https://ui.shadcn.com", icon: "⚪", desc: "精美 React 组件库", tag: "hot" },
+    ]},
+    { name: "📰 资讯前沿", sites: [
+        { name: "Hacker News", url: "https://news.ycombinator.com", icon: "📰", desc: "科技极客信息流" },
+        { name: "ProductHunt", url: "https://www.producthunt.com", icon: "😺", desc: "发现每日最新产品" },
+        { name: "The Verge", url: "https://www.theverge.com", icon: "📱", desc: "科技媒体权威报道" },
+        { name: "TechCrunch", url: "https://techcrunch.com", icon: "💥", desc: "创业科技行业动态" },
+        { name: "36氪", url: "https://36kr.com", icon: "🔑", desc: "中国科技创业媒体" },
+        { name: "少数派", url: "https://sspai.com", icon: "👾", desc: "优质数字生活指南" },
+        { name: "爱范儿", url: "https://www.ifanr.com", icon: "💡", desc: "让未来触手可及" },
+        { name: "虎嗅", url: "https://www.huxiu.com", icon: "🐯", desc: "有态度的商业科技媒体" },
+    ]},
+    { name: "📚 学习成长", sites: [
+        { name: "Coursera", url: "https://www.coursera.org", icon: "🎓", desc: "全球顶尖大学在线课程" },
+        { name: "Udemy", url: "https://www.udemy.com", icon: "📖", desc: "技能学习视频课程" },
+        { name: "freeCodeCamp", url: "https://www.freecodecamp.org", icon: "🔥", desc: "免费学编程证书", tag: "free" },
+        { name: "Khan Academy", url: "https://www.khanacademy.org", icon: "🌿", desc: "免费非盈利教育平台", tag: "free" },
+        { name: "稀土掘金", url: "https://juejin.cn", icon: "💎", desc: "开发者技术分享社区" },
+        { name: "CSDN", url: "https://www.csdn.net", icon: "🖥️", desc: "中文技术博客最大社区" },
+        { name: "LeetCode", url: "https://leetcode.cn", icon: "🧩", desc: "算法面试刷题平台" },
+        { name: "arXiv", url: "https://arxiv.org", icon: "📄", desc: "最新学术论文预印本" },
+    ]},
+    { name: "🛠️ 效率工具", sites: [
+        { name: "Notion", url: "https://www.notion.so", icon: "📝", desc: "全能笔记与项目管理" },
+        { name: "Obsidian", url: "https://obsidian.md", icon: "💎", desc: "本地优先知识图谱" },
+        { name: "Linear", url: "https://linear.app", icon: "⚡", desc: "极简高效的项目跟踪" },
+        { name: "Airtable", url: "https://airtable.com", icon: "📊", desc: "电子表格与数据库结合" },
+        { name: "Excalidraw", url: "https://excalidraw.com", icon: "✏️", desc: "手绘风格协作白板", tag: "free" },
+        { name: "draw.io", url: "https://app.diagrams.net", icon: "📐", desc: "免费在线流程图工具", tag: "free" },
+        { name: "Readwise", url: "https://readwise.io", icon: "📚", desc: "读书笔记智能回顾" },
+        { name: "Raindrop", url: "https://raindrop.io", icon: "🌧️", desc: "精美书签管理工具" },
+    ]},
+    { name: "🎬 视频娱乐", sites: [
+        { name: "YouTube", url: "https://www.youtube.com", icon: "📺", desc: "全球最大视频平台" },
+        { name: "Twitch", url: "https://www.twitch.tv", icon: "💜", desc: "游戏与创意直播平台" },
+        { name: "Netflix", url: "https://www.netflix.com", icon: "🎬", desc: "全球顶级流媒体服务" },
+        { name: "Bilibili", url: "https://www.bilibili.com", icon: "🎮", desc: "弹幕视频二次元社区" },
+        { name: "爱奇艺", url: "https://www.iqiyi.com", icon: "🎭", desc: "在线视频综合平台" },
+        { name: "优酷", url: "https://www.youku.com", icon: "🌺", desc: "阿里旗下视频平台" },
+        { name: "豆瓣", url: "https://douban.com", icon: "📚", desc: "书影音精神角落" },
+        { name: "Steam", url: "https://store.steampowered.com", icon: "🎮", desc: "全球最大 PC 游戏平台" },
+    ]},
+    { name: "💬 社交通讯", sites: [
+        { name: "Discord", url: "https://discord.com", icon: "💬", desc: "开发者与游戏社群聚集地" },
+        { name: "Telegram", url: "https://web.telegram.org", icon: "✈️", desc: "安全加密即时通讯" },
+        { name: "Slack", url: "https://slack.com", icon: "💼", desc: "团队协作沟通平台" },
+        { name: "X (Twitter)", url: "https://x.com", icon: "✖️", desc: "实时全球信息广场" },
+        { name: "LinkedIn", url: "https://www.linkedin.com", icon: "💼", desc: "职场社交与招聘平台" },
+        { name: "微博", url: "https://weibo.com", icon: "👁️", desc: "实时热点早知道" },
+        { name: "小红书", url: "https://www.xiaohongshu.com", icon: "📕", desc: "生活方式分享社区" },
+        { name: "知乎", url: "https://www.zhihu.com", icon: "❓", desc: "中文知识问答社区" },
+    ]},
+    { name: "🛒 购物比价", sites: [
+        { name: "Amazon", url: "https://www.amazon.com", icon: "📦", desc: "全球最大电商平台" },
+        { name: "淘宝", url: "https://www.taobao.com", icon: "🛍️", desc: "中国最大 C2C 电商" },
+        { name: "京东", url: "https://www.jd.com", icon: "🐶", desc: "正品保障 B2C 电商" },
+        { name: "拼多多", url: "https://www.pinduoduo.com", icon: "🥑", desc: "拼团特价购物平台" },
+        { name: "1688", url: "https://www.1688.com", icon: "🏭", desc: "阿里巴巴批发采购" },
+        { name: "什么值得买", url: "https://www.smzdm.com", icon: "💰", desc: "购物优惠精选推荐" },
+    ]},
 ];
 
 let activeCat = "全部";
@@ -175,27 +324,40 @@ let activeCat = "全部";
 function init() {
     renderPills();
     renderSites();
+    renderSearchEngines();
     startTime();
-    
+
+    const count = categories.reduce((sum, c) => sum + c.sites.length, 0);
+    document.getElementById('site-count').textContent = `${count} 个站点`;
+
     const input = document.getElementById('searchInput');
     input.addEventListener('input', renderSites);
     input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            window.open(`https://www.google.com/search?q=${input.value}`, '_blank');
+        if (e.key === 'Enter' && input.value.trim()) {
+            window.open(ENGINES[activeEngine].url + encodeURIComponent(input.value.trim()), '_blank');
         }
     });
 }
 
 function startTime() {
-    const today = new Date();
-    document.getElementById('clock').innerHTML = today.toLocaleTimeString('zh-CN', { hour12: false });
+    const d = new Date();
+    document.getElementById('clock').textContent = d.toLocaleTimeString('zh-CN', { hour12: false });
+    document.getElementById('date-str').textContent = d.toLocaleDateString('zh-CN', { weekday: 'short', month: 'long', day: 'numeric' });
     setTimeout(startTime, 1000);
 }
+
+function renderSearchEngines() {
+    document.getElementById('seBar').innerHTML = ENGINES.map((e, i) => `
+        <button class="se-btn ${i === activeEngine ? 'active' : ''}" onclick="setEngine(${i})">${e.name}</button>
+    `).join('');
+}
+
+window.setEngine = (i) => { activeEngine = i; renderSearchEngines(); };
 
 function renderPills() {
     const all = ["全部", ...categories.map(c => c.name)];
     document.getElementById('pills').innerHTML = all.map(n => `
-        <button class="pill ${n === activeCat ? 'active' : ''}" onclick="switchCat('${n}')">${n}</button>
+        <button class="pill ${n === activeCat ? 'active' : ''}" onclick="switchCat('${n.replace(/'/g, "\\'")}')">${n}</button>
     `).join('');
 }
 
@@ -206,33 +368,43 @@ window.switchCat = (name) => {
 };
 
 function getIcon(url, emoji) {
-    const domain = new URL(url).hostname;
-    return `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" onerror="this.outerHTML='${emoji}'">`;
+    try {
+        const domain = new URL(url).hostname;
+        return `<img src="https://www.google.com/s2/favicons?domain=${domain}&sz=64" onerror="this.outerHTML='${emoji}'" alt="">`;
+    } catch { return emoji; }
 }
 
 function renderSites() {
     const q = document.getElementById('searchInput').value.trim().toLowerCase();
     const container = document.getElementById('sitesContainer');
-    
+
     const filtered = categories.map(cat => ({
         ...cat,
-        sites: cat.sites.filter(s => 
+        sites: cat.sites.filter(s =>
             !q || s.name.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q)
         )
     })).filter(cat => cat.sites.length > 0 && (activeCat === "全部" || cat.name === activeCat));
 
+    const totalShown = filtered.reduce((s, c) => s + c.sites.length, 0);
+    document.getElementById('statsBar').textContent = q ? `找到 ${totalShown} 个相关站点` : '';
+
     if (filtered.length === 0) {
-        container.innerHTML = `<div style="text-align:center; padding:100px; opacity:0.3;">未找到相关站点，回车可直接 Google 搜索</div>`;
+        container.innerHTML = `<div style="text-align:center;padding:100px;opacity:0.3;">未找到相关站点，回车可直接搜索全网</div>`;
         return;
     }
+
+    const tagMap = { hot: 'tag-hot', new: 'tag-new', free: 'tag-free' };
+    const tagLabel = { hot: 'HOT', new: 'NEW', free: 'FREE' };
 
     container.innerHTML = filtered.map(cat => `
         <div class="section-title">${cat.name}</div>
         <div class="grid">
             ${cat.sites.map(s => {
-                const name = q ? s.name.replace(new RegExp(`(${q})`, 'gi'), '<em class="hl">$1</em>') : s.name;
+                const name = q ? s.name.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'), '<em class="hl">$1</em>') : s.name;
+                const tagHtml = s.tag ? `<span class="tag ${tagMap[s.tag]}">${tagLabel[s.tag]}</span>` : '';
                 return `
-                    <a href="${s.url}" target="_blank" class="site-card">
+                    <a href="${s.url}" target="_blank" rel="noopener" class="site-card">
+                        ${tagHtml}
                         <div class="site-icon">${getIcon(s.url, s.icon)}</div>
                         <div class="site-name">${name}</div>
                         <div class="site-desc">${s.desc}</div>
