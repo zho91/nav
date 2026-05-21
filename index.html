@@ -275,6 +275,35 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
 .ad-bar{display:flex;justify-content:center;padding:5px 0;overflow:hidden}
 .ad-box{display:flex;justify-content:center;padding:18px 0 8px}
 @media(max-width:740px){.ad-bar{display:none}}
+/* weather */
+.wth{font-size:12px;color:var(--dim);display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--bd)}
+/* hotbar */
+.hotbar{max-width:1280px;margin:0 auto;padding:0 22px 6px}
+.hotbar-in{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;align-items:center}
+.hotbar-in::-webkit-scrollbar{display:none}
+.hot-lbl{font-size:11px;font-weight:800;color:#ef4444;flex-shrink:0;letter-spacing:1px}
+.hot-it{flex-shrink:0;font-size:11px;padding:3px 9px;border-radius:7px;background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.15);color:var(--dim);text-decoration:none;white-space:nowrap;transition:.18s}
+.hot-it:hover{background:rgba(239,68,68,.18);color:var(--txt);border-color:rgba(239,68,68,.4)}
+.hot-n{font-size:10px;font-weight:800;color:#ef4444;margin-right:2px}
+.hot-n.t3{color:#f59e0b}
+/* theme */
+.thm-wrap{position:relative}
+.thm-pop{position:absolute;top:calc(100% + 6px);left:0;background:rgba(8,14,26,.97);border:1px solid var(--bd);border-radius:12px;padding:8px 10px;display:none;gap:7px;z-index:300;align-items:center;box-shadow:0 8px 24px rgba(0,0,0,.6);white-space:nowrap}
+.thm-pop.on{display:flex}
+.thm-dot{width:20px;height:20px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.18s;flex-shrink:0}
+.thm-dot:hover,.thm-dot.sel{border-color:rgba(255,255,255,.8);transform:scale(1.25)}
+/* news in toolbox */
+.ntabs{display:flex;gap:4px;margin-bottom:10px;flex-wrap:wrap}
+.ntab{font-size:11px;padding:4px 10px;border-radius:7px;background:var(--card);border:1px solid var(--bd);color:var(--dim);cursor:pointer;font-family:inherit;transition:.18s}
+.ntab.on{background:var(--pu);color:#fff;border-color:transparent}
+.ntab:hover:not(.on){color:var(--txt)}
+.nws-item{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05);align-items:flex-start;text-decoration:none;transition:.15s;color:inherit}
+.nws-item:hover{background:rgba(255,255,255,.04);margin:0 -4px;padding:8px 4px;border-radius:8px}
+.nws-item:last-child{border-bottom:none}
+.nws-rank{font-size:11px;font-weight:800;color:var(--pu);width:18px;flex-shrink:0;margin-top:2px;text-align:right}
+.nws-rank.top{color:#ef4444}
+.nws-t{font-size:12px;color:var(--txt);line-height:1.5;flex:1}
+.nws-load{text-align:center;padding:24px;color:var(--dim);font-size:13px}
 </style>
 </head>
 <body>
@@ -296,6 +325,7 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
     <button class="ttab" onclick="switchTab('pwd',this)">🔑 密码</button>
     <button class="ttab" onclick="switchTab('qr',this)">📷 二维码</button>
     <button class="ttab" onclick="switchTab('cx',this)">💱 汇率</button>
+    <button class="ttab" onclick="switchTab('news',this)">📰 热点</button>
   </div>
   <div class="tbody">
     <!-- NOTE -->
@@ -399,6 +429,11 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
         <div style="font-size:10px;color:var(--dim);margin-top:8px;text-align:right">汇率仅供参考</div>
       </div>
     </div>
+    <!-- NEWS -->
+    <div class="tpanel" id="tp-news">
+      <div class="ntabs" id="ntabs"></div>
+      <div id="newsList"><div class="nws-load">⏳ 加载中...</div></div>
+    </div>
   </div>
 </div>
 
@@ -417,6 +452,7 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
     <span id="datestr"></span>
   </div>
   <div id="greet"></div>
+  <span class="wth" id="wth" style="display:none"></span>
   <span class="ver">v5.0 Pro</span>
 </div>
 <div class="hdr">
@@ -451,8 +487,11 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
   </div>
   <div class="tgrp">
     <button class="tbtn" id="viewbtn" onclick="toggleView()">☰ 列表</button>
+    <button class="tbtn" onclick="openTbx('news')">📰 热点</button>
+    <div class="tbtn thm-wrap" id="thmBtn" onclick="toggleThm()" style="cursor:pointer">🎨 主题<div class="thm-pop" id="thmPop"></div></div>
   </div>
 </div>
+<div class="hotbar" id="hotbar" style="display:none"><div class="hotbar-in" id="hotIn"></div></div>
 <div class="ad-bar"><script>atOptions={'key':'b690053fb9e3b2d86118acf00a779f6e','format':'iframe','height':90,'width':728,'params':{}};</script><script src="https://www.highperformanceformat.com/b690053fb9e3b2d86118acf00a779f6e/invoke.js"></script></div>
 <div class="pillwrap"><div class="pills" id="pills"></div></div>
 <div class="rst" id="rst"></div>
@@ -849,7 +888,7 @@ function openTbx(tab){
   document.getElementById('tbx').classList.add('open');
   document.getElementById('ovl').classList.add('on');
   if(tab){
-    var tabs=['note','todo','pomo','bm'];
+    var tabs=['note','todo','pomo','bm','pwd','qr','cx','news'];
     var idx=tabs.indexOf(tab);
     var btn=document.querySelectorAll('.ttab')[idx];
     switchTab(tab,btn||null);
@@ -1103,6 +1142,110 @@ document.addEventListener('keydown',function(e){
 });
 
 // ── 初始化 ──
+// ── 天气 ──
+function fetchWeather(){
+  fetch('https://wttr.in/?format=j1').then(function(r){return r.json();}).then(function(d){
+    var cc=d.current_condition[0];
+    var city=d.nearest_area[0].areaName[0].value;
+    var t=cc.temp_C;
+    var code=parseInt(cc.weatherCode);
+    var ic=code===113?'☀':code<=116?'⛅':code<=122?'☁':code<=143?'🌫':code<=200?'🌦':code<=299?'🌧':code<=350?'🌨':'⛈';
+    var el=document.getElementById('wth');
+    el.textContent=ic+' '+city+' '+t+'°C';
+    el.style.display='inline-flex';
+  }).catch(function(){});
+}
+
+// ── 热搜 ──
+function fetchHot(){
+  fetch('https://api.vvhan.com/api/hotlist?type=wbHot').then(function(r){return r.json();}).then(function(d){
+    if(!d.success||!d.data||!d.data.length)return;
+    var items=d.data.slice(0,15);
+    var html='<span class="hot-lbl">🔥 微博热搜</span>';
+    items.forEach(function(it,i){
+      var url=it.url||('https://s.weibo.com/weibo?q='+encodeURIComponent(it.title));
+      html+='<a class="hot-it" href="'+escHtml(url)+'" target="_blank" rel="noopener"><span class="hot-n'+(i<3?' t3':'')+'">'+(i+1)+'</span>'+escHtml(it.title)+'</a>';
+    });
+    document.getElementById('hotIn').innerHTML=html;
+    document.getElementById('hotbar').style.display='block';
+  }).catch(function(){});
+}
+
+// ── 主题 ──
+var THEMES={
+  pu:{n:'💜 紫',c:'#8b5cf6',p:'#ec4899',bg:'#060c1a'},
+  bl:{n:'💙 蓝',c:'#0ea5e9',p:'#38bdf8',bg:'#020c1a'},
+  gr:{n:'💚 绿',c:'#10b981',p:'#34d399',bg:'#040f09'},
+  rd:{n:'❤ 玫瑰',c:'#f43f5e',p:'#fb7185',bg:'#140408'},
+  gd:{n:'🧡 金',c:'#f59e0b',p:'#fbbf24',bg:'#100900'},
+};
+var curThm=gl('thm')||'pu';
+function applyThm(t){
+  var th=THEMES[t]||THEMES.pu;
+  var s=document.documentElement.style;
+  s.setProperty('--pu',th.c);s.setProperty('--pk',th.p);s.setProperty('--bg',th.bg);
+  var rgb=th.c.slice(1).match(/.{2}/g).map(function(x){return parseInt(x,16);});
+  s.setProperty('--glow','rgba('+rgb.join(',')+',.25)');
+  curThm=t;sl('thm',t);renderThmPop();
+  document.getElementById('thmPop').classList.remove('on');
+}
+function renderThmPop(){
+  var html='';
+  Object.keys(THEMES).forEach(function(k){
+    var th=THEMES[k];
+    html+='<div class="thm-dot'+(k===curThm?' sel':'')+'" style="background:linear-gradient(135deg,'+th.c+','+th.p+')" onclick="applyThm(\''+k+'\')" title="'+th.n+'"></div>';
+  });
+  document.getElementById('thmPop').innerHTML=html;
+}
+function toggleThm(e){
+  var pop=document.getElementById('thmPop');
+  pop.classList.toggle('on');
+  if(pop.classList.contains('on'))renderThmPop();
+  if(e)e.stopPropagation();
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('#thmBtn')){var p=document.getElementById('thmPop');if(p)p.classList.remove('on');}
+});
+window.applyThm=applyThm;window.toggleThm=toggleThm;
+
+// ── 资讯热点 ──
+var NEWS_SRC={
+  wb:{n:'微博',api:'https://api.vvhan.com/api/hotlist?type=wbHot'},
+  zh:{n:'知乎',api:'https://api.vvhan.com/api/hotlist?type=zhihuHot'},
+  tt:{n:'头条',api:'https://api.vvhan.com/api/hotlist?type=toutiaoNews'},
+  bd:{n:'百度',api:'https://api.vvhan.com/api/hotlist?type=baiduHot'},
+};
+var newsCache={};var curNewsTab='wb';
+function renderNewsTabs(){
+  var html='';
+  Object.keys(NEWS_SRC).forEach(function(k){
+    html+='<button class="ntab'+(k===curNewsTab?' on':'')+'" onclick="switchNewsTab(\''+k+'\')">'+NEWS_SRC[k].n+'</button>';
+  });
+  document.getElementById('ntabs').innerHTML=html;
+}
+function switchNewsTab(k){
+  curNewsTab=k;renderNewsTabs();loadNews(k);
+}
+function loadNews(k){
+  var list=document.getElementById('newsList');
+  if(!list)return;
+  if(newsCache[k]){renderNewsList(newsCache[k]);return;}
+  list.innerHTML='<div class="nws-load">⏳ 加载中...</div>';
+  fetch(NEWS_SRC[k].api).then(function(r){return r.json();}).then(function(d){
+    if(!d.success||!d.data)throw 0;
+    newsCache[k]=d.data.slice(0,20);
+    renderNewsList(newsCache[k]);
+  }).catch(function(){list.innerHTML='<div class="nws-load" style="color:var(--rd)">加载失败，点击重试</div>';});
+}
+function renderNewsList(items){
+  var list=document.getElementById('newsList');if(!list)return;
+  list.innerHTML=items.map(function(it,i){
+    var url=it.url||('#');
+    return '<a class="nws-item" href="'+escHtml(url)+'" target="_blank" rel="noopener"><span class="nws-rank'+(i<3?' top':'')+'">'+( i+1)+'</span><span class="nws-t">'+escHtml(it.title)+'</span></a>';
+  }).join('');
+}
+window.switchNewsTab=switchNewsTab;
+
 function init(){
   var total=0;CATS.forEach(function(c){total+=c.sites.length;});
   document.getElementById('catN').textContent=CATS.length;
@@ -1133,6 +1276,11 @@ function init(){
   });
   genPwd();
   calcCx();
+  applyThm(curThm);
+  fetchWeather();
+  fetchHot();
+  renderNewsTabs();
+  loadNews('wb');
 }
 
 window.goTop=function(){window.scrollTo({top:0,behavior:'smooth'});};
