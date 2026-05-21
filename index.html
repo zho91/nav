@@ -227,6 +227,8 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
 .vpncta{display:block;padding:8px;border-radius:9px;background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;font-size:12px;font-weight:700;text-align:center;text-decoration:none;transition:.18s}
 .vpncta:hover{opacity:.88}
 .vpndisc{position:absolute;top:9px;right:9px;font-size:9px;font-weight:800;padding:2px 7px;border-radius:5px;background:var(--rd);color:#fff;letter-spacing:.4px}
+.support-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 14px;border-radius:20px;background:linear-gradient(135deg,rgba(236,72,153,.13),rgba(139,92,246,.13));border:1px solid rgba(236,72,153,.28);color:#f9a8d4;font-size:12px;font-weight:700;text-decoration:none;transition:.2s;margin-top:9px}
+.support-btn:hover{background:linear-gradient(135deg,rgba(236,72,153,.25),rgba(139,92,246,.25));border-color:rgba(236,72,153,.5);transform:scale(1.04)}
 @media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}.logo{font-size:32px}.kbhint{display:none}.tbx{width:100%;right:-100%}.topbar,.srch-wrap,.tbar,.pillwrap,.main{padding-left:14px;padding-right:14px}.hdr{padding:18px 14px 10px}.vpncards{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
@@ -331,6 +333,7 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
     <div class="chip">🛡️ <b>11</b> 免费 VPN</div>
     <div class="chip">🧰 快记 · 待办 · 番茄钟</div>
   </div>
+  <a class="support-btn" href="https://afdian.com/@YOUR_USERNAME" target="_blank" rel="noopener">❤ 支持作者</a>
 </div>
 <div class="srch-wrap">
   <div class="sbox">
@@ -510,6 +513,26 @@ var CATS=[
   ]},
 ];
 
+// ── 主机/域名联盟 ── 替换 link 为你的专属链接 ──
+var HOST_AFF=[
+  {name:"DigitalOcean",ico:"🌊",bg:"linear-gradient(135deg,#0080ff,#0059b3)",stars:"★★★★★",
+   tags:[{l:"开发者首选",c:"a"},{l:"新用户$200",c:"b"}],
+   price:"$4",unit:"/月起",old:"$6",disc:"$200赠金",
+   link:"https://m.do.co/c/YOUR_REF_CODE"},
+  {name:"Vultr",ico:"⚡",bg:"linear-gradient(135deg,#007bfc,#0042a0)",stars:"★★★★½",
+   tags:[{l:"全球节点",c:"a"},{l:"按小时计费",c:"c"}],
+   price:"$2.5",unit:"/月起",old:"$5",disc:"$100赠金",
+   link:"https://www.vultr.com/?ref=YOUR_REF_ID"},
+  {name:"Namecheap",ico:"🔑",bg:"linear-gradient(135deg,#f97316,#ea580c)",stars:"★★★★☆",
+   tags:[{l:"域名最低价",c:"a"},{l:"免费隐私保护",c:"c"}],
+   price:"$1.98",unit:"/首年",old:"$13.98",disc:"域名特惠",
+   link:"https://www.namecheap.com/?aff=YOUR_AFF_ID"},
+  {name:"Hostinger",ico:"🟣",bg:"linear-gradient(135deg,#673ab7,#512da8)",stars:"★★★★☆",
+   tags:[{l:"最高60%佣金",c:"a"},{l:"便宜建站",c:"c"}],
+   price:"$2.99",unit:"/月起",old:"$9.99",disc:"70%OFF",
+   link:"https://www.hostinger.com/affiliates"},
+];
+
 // ── VPN 联盟推广 ── 将每条 link 替换为你的联盟推广专属链接 ──
 var VPN_AFF=[
   {name:"ExpressVPN",ico:"🛡",bg:"linear-gradient(135deg,#e53e3e,#c53030)",stars:"★★★★★",
@@ -622,6 +645,27 @@ function fav(url,em){
   }catch(e){return em;}
 }
 
+// ── 主机推广卡片 ──
+function renderHostSection(){
+  var h='<div class="vpnsec">';
+  h+='<div class="vpnsec-hd"><div class="vpnsec-t">🚀 精选主机/域名 <span class="vpnsec-badge">SPONSORED</span></div><span class="vpnsec-sub">独家优惠 · 按需选择</span></div>';
+  h+='<div class="vpncards">';
+  HOST_AFF.forEach(function(v){
+    h+='<a href="'+v.link+'" target="_blank" rel="noopener sponsored" class="vpncard">';
+    h+='<div class="vpndisc">'+v.disc+'</div>';
+    h+='<div class="vpncard-top"><div class="vpnic2" style="background:'+v.bg+'">'+v.ico+'</div>';
+    h+='<div><div class="vpnname">'+v.name+'</div><div class="vpnstars">'+v.stars+'</div></div></div>';
+    h+='<div class="vpntags">';
+    v.tags.forEach(function(t){h+='<span class="vtag vtag-'+t.c+'">'+t.l+'</span>';});
+    h+='</div>';
+    h+='<div class="vpnprice"><span class="vpnp">'+v.price+'</span><span class="vpnpu">'+v.unit+'</span>'+(v.old?'<span class="vpnpo">'+v.old+'</span>':'')+'</div>';
+    h+='<span class="vpncta">立即获取 →</span>';
+    h+='</a>';
+  });
+  h+='</div></div>';
+  return h;
+}
+
 // ── VPN 推广卡片 ──
 function renderVpnSection(){
   var h='<div class="vpnsec">';
@@ -668,7 +712,8 @@ function renderSites(){
     return;
   }
   var showVpn=!q&&(activeCat==="全部"||activeCat.indexOf("翻墙")>=0);
-  var html=showVpn?renderVpnSection():'';
+  var showHost=!q&&(activeCat==="全部"||activeCat.indexOf("部署")>=0);
+  var html=(showVpn?renderVpnSection():'')+(showHost?renderHostSection():'');
   filtered.forEach(function(cat,ci){
     html+='<div class="sec-hd"><div class="sec-t">'+cat.name+'</div><div class="sec-ln"></div><div class="sec-n">'+cat.sites.length+'</div></div><div class="grid">';
     cat.sites.forEach(function(s,si){
