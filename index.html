@@ -9,7 +9,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="智航PRO">
 <link rel="apple-touch-icon" href="icon.svg">
-<script src="https://pl29511103.effectivecpmnetwork.com/25/b8/a7/25b8a73a49202f4fcfd980841a8328d8.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9G7X1BEB5W"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-9G7X1BEB5W');</script>
 <style>
@@ -320,6 +319,32 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
 .qi-ico img{width:24px;height:24px;object-fit:contain;border-radius:5px}
 .qi-name{font-size:10px;color:var(--dim);white-space:nowrap;font-weight:600;max-width:62px;overflow:hidden;text-overflow:ellipsis;text-align:center}
 @media(max-width:600px){.qbar{padding-left:14px;padding-right:14px}}
+/* ── affiliate bar (728×90) ── */
+.aff-bar{width:100%;max-width:728px;height:90px;border-radius:14px;background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(236,72,153,.07));border:1px solid rgba(139,92,246,.22);display:flex;align-items:center;overflow:hidden;text-decoration:none}
+.aff-bar-ttl{padding:0 14px;font-size:10px;font-weight:800;color:var(--pu);text-transform:uppercase;letter-spacing:1.5px;white-space:nowrap;border-right:1px solid rgba(139,92,246,.15);height:100%;display:flex;align-items:center;flex-shrink:0}
+.aff-bar-items{display:flex;flex:1;height:100%}
+.aff-bar-it{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 10px;border-right:1px solid rgba(255,255,255,.05);text-decoration:none;transition:.18s;gap:3px}
+.aff-bar-it:last-child{border-right:none}
+.aff-bar-it:hover{background:rgba(139,92,246,.12)}
+.aff-bar-ico{font-size:22px;line-height:1}
+.aff-bar-nm{font-size:11px;font-weight:700;color:var(--txt)}
+.aff-bar-disc{font-size:10px;font-weight:800;color:#ef4444;background:rgba(239,68,68,.12);padding:1px 6px;border-radius:4px;letter-spacing:.3px}
+/* ── affiliate box (300×250) ── */
+.aff-box-card{width:300px;border-radius:18px;background:linear-gradient(145deg,rgba(139,92,246,.13),rgba(236,72,153,.08));border:1px solid rgba(139,92,246,.28);padding:18px;display:flex;flex-direction:column;gap:11px;text-decoration:none;transition:.22s;position:relative;overflow:hidden}
+.aff-box-card:hover{border-color:rgba(139,92,246,.55);transform:translateY(-3px);box-shadow:0 14px 36px rgba(0,0,0,.5),0 0 22px var(--glow)}
+.aff-box-card::before{content:'推荐';position:absolute;top:0;left:0;font-size:9px;font-weight:800;letter-spacing:1px;padding:3px 10px 3px 12px;background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;border-radius:18px 0 12px 0}
+.aff-box-disc{position:absolute;top:8px;right:10px;font-size:9px;font-weight:800;padding:2px 8px;border-radius:5px;background:var(--rd);color:#fff;letter-spacing:.4px}
+.aff-box-top{display:flex;align-items:center;gap:11px;margin-top:10px}
+.aff-box-ico{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.aff-box-nm{font-size:15px;font-weight:800;color:var(--txt);line-height:1.2}
+.aff-box-stars{font-size:12px;color:var(--yw);letter-spacing:1px;margin-top:1px}
+.aff-box-price{display:flex;align-items:baseline;gap:6px}
+.aff-box-p{font-size:26px;font-weight:900;color:var(--txt);line-height:1}
+.aff-box-pu{font-size:11px;color:var(--dim)}
+.aff-box-po{font-size:12px;color:var(--dim);text-decoration:line-through}
+.aff-box-cta{display:block;padding:11px;border-radius:11px;background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;font-size:13px;font-weight:800;text-align:center;transition:.18s;box-shadow:0 4px 16px var(--glow);margin-top:auto}
+.aff-box-cta:hover{opacity:.88}
+@media(max-width:600px){.aff-box-card{width:100%;max-width:340px}}
 </style>
 </head>
 <body>
@@ -515,11 +540,11 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
   </div>
 </div>
 <div class="hotbar" id="hotbar" style="display:none"><div class="hotbar-in" id="hotIn"></div></div>
-<div class="ad-bar"><script>atOptions={'key':'b690053fb9e3b2d86118acf00a779f6e','format':'iframe','height':90,'width':728,'params':{}};</script><script src="https://www.highperformanceformat.com/b690053fb9e3b2d86118acf00a779f6e/invoke.js"></script></div>
+<div class="ad-bar" id="affBar"></div>
 <div class="pillwrap"><div class="pills" id="pills"></div></div>
 <div class="rst" id="rst"></div>
 <div class="main" id="main"></div>
-<div class="ad-box"><script>atOptions={'key':'a370265a452f88db1b676535bef09767','format':'iframe','height':250,'width':300,'params':{}};</script><script src="https://www.highperformanceformat.com/a370265a452f88db1b676535bef09767/invoke.js"></script></div>
+<div class="ad-box" id="affBox"></div>
 </div>
 
 <div class="fabs">
@@ -1218,6 +1243,36 @@ function fetchWeather(){
 // ── 热搜 ──
 function fetchHot(){}
 
+// ── 自制联盟广告位 ──
+function renderAffBars(){
+  var bar=document.getElementById('affBar');
+  if(bar){
+    var h='<div class="aff-bar"><div class="aff-bar-ttl">🔥 推荐VPN</div><div class="aff-bar-items">';
+    VPN_AFF.forEach(function(v){
+      h+='<a class="aff-bar-it" href="'+v.link+'" target="_blank" rel="noopener sponsored">'
+        +'<span class="aff-bar-ico">'+v.ico+'</span>'
+        +'<span class="aff-bar-nm">'+v.name+'</span>'
+        +'<span class="aff-bar-disc">'+v.disc+'</span>'
+        +'</a>';
+    });
+    h+='</div></div>';
+    bar.innerHTML=h;
+  }
+  var box=document.getElementById('affBox');
+  if(box&&VPN_AFF.length){
+    var v=VPN_AFF[0];
+    var tags='';v.tags.forEach(function(t){tags+='<span class="vtag vtag-'+t.c+'">'+t.l+'</span>';});
+    box.innerHTML='<a class="aff-box-card" href="'+v.link+'" target="_blank" rel="noopener sponsored">'
+      +'<div class="aff-box-disc">'+v.disc+'</div>'
+      +'<div class="aff-box-top"><div class="aff-box-ico" style="background:'+v.bg+'">'+v.ico+'</div>'
+      +'<div><div class="aff-box-nm">'+v.name+'</div><div class="aff-box-stars">'+v.stars+'</div></div></div>'
+      +'<div class="vpntags">'+tags+'</div>'
+      +'<div class="aff-box-price"><span class="aff-box-p">'+v.price+'</span><span class="aff-box-pu">'+v.unit+'</span><span class="aff-box-po">'+v.old+'</span></div>'
+      +'<span class="aff-box-cta">立即获取 '+v.disc+' 折扣 →</span>'
+      +'</a>';
+  }
+}
+
 // ── 星空 ──
 function initStars(){
   var c=document.getElementById('sc');
@@ -1344,6 +1399,7 @@ function init(){
   applyThm(curThm);
   fetchWeather();
   fetchHot();
+  renderAffBars();
   initStars();
 }
 
