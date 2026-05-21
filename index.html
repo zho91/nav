@@ -202,7 +202,32 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
 .itxt span{font-size:12px;color:var(--dim)}
 .ibtn{padding:8px 16px;border-radius:10px;background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0;font-family:inherit}
 .idis{width:26px;height:26px;border-radius:7px;background:rgba(255,255,255,.06);border:none;color:var(--dim);cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}.logo{font-size:32px}.kbhint{display:none}.tbx{width:100%;right:-100%}.topbar,.srch-wrap,.tbar,.pillwrap,.main{padding-left:14px;padding-right:14px}.hdr{padding:18px 14px 10px}}
+/* ── VPN affiliate promo ── */
+.vpnsec{background:linear-gradient(135deg,rgba(139,92,246,.08),rgba(236,72,153,.05));border:1px solid rgba(139,92,246,.2);border-radius:18px;padding:16px 16px 14px;margin-bottom:20px}
+.vpnsec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;flex-wrap:wrap;gap:6px}
+.vpnsec-t{font-size:11px;font-weight:800;color:var(--pu);letter-spacing:2px;text-transform:uppercase;display:flex;align-items:center;gap:7px}
+.vpnsec-badge{font-size:9px;background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;padding:2px 7px;border-radius:5px;font-weight:800;letter-spacing:.5px}
+.vpnsec-sub{font-size:11px;color:var(--dim)}
+.vpncards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:9px}
+.vpncard{background:rgba(10,18,38,.8);border:1px solid rgba(139,92,246,.15);border-radius:13px;padding:13px;display:flex;flex-direction:column;gap:9px;transition:.22s;position:relative;overflow:hidden;text-decoration:none}
+.vpncard:hover{border-color:rgba(139,92,246,.5);transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.5),0 0 18px var(--glow)}
+.vpncard-top{display:flex;align-items:center;gap:10px}
+.vpnic2{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.vpnname{font-size:13px;font-weight:700;color:var(--txt);line-height:1.2}
+.vpnstars{font-size:11px;color:var(--yw);margin-top:2px;letter-spacing:.8px}
+.vpntags{display:flex;gap:5px;flex-wrap:wrap}
+.vtag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px}
+.vtag-a{background:rgba(16,185,129,.15);color:#34d399;border:1px solid rgba(52,211,153,.2)}
+.vtag-b{background:rgba(59,130,246,.15);color:#60a5fa;border:1px solid rgba(96,165,250,.2)}
+.vtag-c{background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(251,191,36,.2)}
+.vpnprice{display:flex;align-items:baseline;gap:5px}
+.vpnp{font-size:20px;font-weight:900;color:var(--txt);line-height:1}
+.vpnpu{font-size:11px;color:var(--dim)}
+.vpnpo{font-size:12px;color:var(--dim);text-decoration:line-through}
+.vpncta{display:block;padding:8px;border-radius:9px;background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;font-size:12px;font-weight:700;text-align:center;text-decoration:none;transition:.18s}
+.vpncta:hover{opacity:.88}
+.vpndisc{position:absolute;top:9px;right:9px;font-size:9px;font-weight:800;padding:2px 7px;border-radius:5px;background:var(--rd);color:#fff;letter-spacing:.4px}
+@media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}.logo{font-size:32px}.kbhint{display:none}.tbx{width:100%;right:-100%}.topbar,.srch-wrap,.tbar,.pillwrap,.main{padding-left:14px;padding-right:14px}.hdr{padding:18px 14px 10px}.vpncards{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body>
@@ -485,6 +510,26 @@ var CATS=[
   ]},
 ];
 
+// ── VPN 联盟推广 ── 将每条 link 替换为你的联盟推广专属链接 ──
+var VPN_AFF=[
+  {name:"ExpressVPN",ico:"🛡",bg:"linear-gradient(135deg,#e53e3e,#c53030)",stars:"★★★★★",
+   tags:[{l:"翻墙首选",c:"a"},{l:"速度最快",c:"b"}],
+   price:"$6.67",unit:"/月",old:"$12.95",disc:"49%OFF",
+   link:"https://www.expressvpn.com/partner/"},
+  {name:"NordVPN",ico:"🔒",bg:"linear-gradient(135deg,#4263eb,#2f4acf)",stars:"★★★★★",
+   tags:[{l:"中国可用",c:"a"},{l:"双重加密",c:"b"}],
+   price:"$3.99",unit:"/月",old:"$11.95",disc:"66%OFF",
+   link:"https://nordvpn.com/affiliate/"},
+  {name:"Surfshark",ico:"🦈",bg:"linear-gradient(135deg,#0ea5e9,#0284c7)",stars:"★★★★½",
+   tags:[{l:"不限设备",c:"a"},{l:"性价比高",c:"c"}],
+   price:"$2.49",unit:"/月",old:"$12.95",disc:"81%OFF",
+   link:"https://surfshark.com/affiliates"},
+  {name:"Astrill VPN",ico:"⚡",bg:"linear-gradient(135deg,#f59e0b,#d97706)",stars:"★★★★☆",
+   tags:[{l:"中国专用",c:"a"},{l:"超稳定",c:"c"}],
+   price:"$10",unit:"/月",old:"$15",disc:"限时优惠",
+   link:"https://www.astrill.com/partner/"},
+];
+
 // ── 状态 ──
 var activeCat="全部", activeEng=0, isListView=false, todos=[], bookmarks=[];
 
@@ -577,6 +622,27 @@ function fav(url,em){
   }catch(e){return em;}
 }
 
+// ── VPN 推广卡片 ──
+function renderVpnSection(){
+  var h='<div class="vpnsec">';
+  h+='<div class="vpnsec-hd"><div class="vpnsec-t">🛡 精选 VPN 推荐 <span class="vpnsec-badge">SPONSORED</span></div><span class="vpnsec-sub">安全翻墙 · 专属折扣 · 30天退款</span></div>';
+  h+='<div class="vpncards">';
+  VPN_AFF.forEach(function(v){
+    h+='<a href="'+v.link+'" target="_blank" rel="noopener sponsored" class="vpncard">';
+    h+='<div class="vpndisc">'+v.disc+'</div>';
+    h+='<div class="vpncard-top"><div class="vpnic2" style="background:'+v.bg+'">'+v.ico+'</div>';
+    h+='<div><div class="vpnname">'+v.name+'</div><div class="vpnstars">'+v.stars+'</div></div></div>';
+    h+='<div class="vpntags">';
+    v.tags.forEach(function(t){h+='<span class="vtag vtag-'+t.c+'">'+t.l+'</span>';});
+    h+='</div>';
+    h+='<div class="vpnprice"><span class="vpnp">'+v.price+'</span><span class="vpnpu">'+v.unit+'</span><span class="vpnpo">'+v.old+'</span></div>';
+    h+='<span class="vpncta">立即获取 →</span>';
+    h+='</a>';
+  });
+  h+='</div></div>';
+  return h;
+}
+
 // ── 渲染站点 ──
 var TCLS={hot:'th',new:'tn',free:'tf'};
 var TLBL={hot:'HOT',new:'NEW',free:'FREE'};
@@ -601,7 +667,8 @@ function renderSites(){
     main.innerHTML='<div class="empty"><div class="big">🔍</div>没有找到「'+escHtml(q)+'」<br><small style="display:block;margin-top:8px;font-size:13px">按 Enter 直接搜索全网</small></div>';
     return;
   }
-  var html='';
+  var showVpn=!q&&(activeCat==="全部"||activeCat.indexOf("翻墙")>=0);
+  var html=showVpn?renderVpnSection():'';
   filtered.forEach(function(cat,ci){
     html+='<div class="sec-hd"><div class="sec-t">'+cat.name+'</div><div class="sec-ln"></div><div class="sec-n">'+cat.sites.length+'</div></div><div class="grid">';
     cat.sites.forEach(function(s,si){
