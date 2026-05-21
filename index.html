@@ -346,6 +346,16 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
 .aff-box-cta{display:block;padding:11px;border-radius:11px;background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;font-size:13px;font-weight:800;text-align:center;transition:.18s;box-shadow:0 4px 16px var(--glow);margin-top:auto}
 .aff-box-cta:hover{opacity:.88}
 @media(max-width:600px){.aff-box-card{width:100%;max-width:340px}}
+/* ── 底部 VPN 推广条 ── */
+.vcta{position:fixed;bottom:0;left:0;right:0;z-index:450;background:linear-gradient(135deg,rgba(6,10,22,.98),rgba(20,8,38,.98));border-top:1px solid rgba(139,92,246,.35);backdrop-filter:blur(20px);padding:10px 16px;display:flex;align-items:center;gap:10px;transform:translateY(100%);transition:transform .4s cubic-bezier(.34,1.56,.64,1);box-shadow:0 -6px 28px rgba(0,0,0,.6)}
+.vcta.show{transform:translateY(0)}
+.vcta-ico{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.vcta-txt{flex:1;min-width:0}
+.vcta-nm{font-size:13px;font-weight:800;color:var(--txt)}
+.vcta-sub{font-size:11px;color:var(--dim);margin-top:1px}
+.vcta-btn{padding:9px 14px;border-radius:11px;background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;font-size:12px;font-weight:800;text-decoration:none;flex-shrink:0;white-space:nowrap;box-shadow:0 4px 16px var(--glow);transition:.18s}
+.vcta-btn:hover{opacity:.88}
+.vcta-dis{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.07);border:none;color:var(--dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;font-family:inherit}
 </style>
 </head>
 <body>
@@ -547,6 +557,9 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
 <div class="main" id="main"></div>
 <div class="ad-box" id="affBox"></div>
 </div>
+
+<!-- 底部 VPN 推广条（内联，VPN 无法屏蔽）-->
+<div class="vcta" id="vcta"></div>
 
 <div class="fabs">
   <button class="fab fab1" onclick="toggleTbx()" title="工具箱">🧰<span class="fbadge" id="fbadge"></span></button>
@@ -964,6 +977,21 @@ function renderSites(){
       html+='<a href="'+s.u+'" target="_blank" rel="noopener" class="scard" style="animation-delay:'+delay+'ms;--cc:'+cc+'">'+tag+'<div class="sico2" style="background:'+cc+'1a">'+fav(s.u,s.e)+'</div><div class="sinf"><div class="sname">'+nm+'</div><div class="sdesc">'+escHtml(s.d)+'</div></div></a>';
     });
     html+='</div>';
+    // 每隔 3 个分类插入一条原生联盟广告卡
+    if(!q&&ci===2&&VPN_AFF.length){
+      var va=VPN_AFF[1]||VPN_AFF[0];
+      html+='<div class="grid" style="margin-top:6px">'
+        +'<a href="'+va.link+'" target="_blank" rel="noopener sponsored" class="scard scard-ad" style="--cc:#8b5cf6;grid-column:span 2">'
+        +'<span class="stag-sp">SPONSORED</span>'
+        +'<div style="display:flex;align-items:center;gap:10px;width:100%">'
+        +'<div class="sico2" style="background:'+va.bg+';flex-shrink:0">'+va.ico+'</div>'
+        +'<div style="flex:1;min-width:0">'
+        +'<div class="sname">'+va.name+' — '+va.disc+'</div>'
+        +'<div class="sdesc">'+va.price+va.unit+' · '+va.tags.map(function(t){return t.l;}).join(' · ')+'</div>'
+        +'</div>'
+        +'<div style="font-size:11px;font-weight:800;padding:6px 12px;border-radius:10px;background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;white-space:nowrap;flex-shrink:0">立即获取</div>'
+        +'</div></a></div>';
+    }
   });
   main.innerHTML=html;
 }
@@ -1244,6 +1272,29 @@ function fetchWeather(){
 // ── 热搜 ──
 function fetchHot(){}
 
+// ── 底部 VPN 推广条 ──
+function initVpnCta(){
+  var bar=document.getElementById('vcta');
+  if(!bar||!VPN_AFF.length)return;
+  if(gl('vcta-d')){
+    var t=parseInt(gl('vcta-d')||'0');
+    if(Date.now()-t<86400000)return; // 24小时内关闭过就不再显示
+  }
+  var v=VPN_AFF[0];
+  bar.innerHTML='<div class="vcta-ico" style="background:'+v.bg+'">'+v.ico+'</div>'
+    +'<div class="vcta-txt"><div class="vcta-nm">'+v.name+' — '+v.disc+'</div>'
+    +'<div class="vcta-sub">'+v.price+v.unit+' · 翻墙稳定首选 · 30天退款</div></div>'
+    +'<a class="vcta-btn" href="'+v.link+'" target="_blank" rel="noopener sponsored">立即抢购</a>'
+    +'<button class="vcta-dis" onclick="closeVpnCta()">✕</button>';
+  setTimeout(function(){bar.classList.add('show');},3500);
+}
+function closeVpnCta(){
+  var bar=document.getElementById('vcta');
+  if(bar)bar.classList.remove('show');
+  sl('vcta-d',String(Date.now()));
+}
+window.closeVpnCta=closeVpnCta;
+
 // ── 广告位：Adsterra 优先，加载失败自动显示联盟横幅 ──
 function renderAffBars(){
   // ── 728×90 bar（桌面）──
@@ -1428,6 +1479,7 @@ function init(){
   fetchWeather();
   fetchHot();
   renderAffBars();
+  initVpnCta();
   initStars();
 }
 
