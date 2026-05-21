@@ -1,0 +1,230 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="675" viewBox="0 0 1200 675">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#c4b5fd"/>
+      <stop offset="50%" stop-color="#f9a8d4"/>
+      <stop offset="100%" stop-color="#93c5fd"/>
+    </linearGradient>
+    <linearGradient id="gbtn" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+    <linearGradient id="gcard" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(139,92,246,0.15)"/>
+      <stop offset="100%" stop-color="rgba(236,72,153,0.08)"/>
+    </linearGradient>
+    <radialGradient id="b1" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="b2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#db2777" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#db2777" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="b3" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#2563eb" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#2563eb" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="bl"><feGaussianBlur stdDeviation="55"/></filter>
+    <filter id="bl2"><feGaussianBlur stdDeviation="40"/></filter>
+    <clipPath id="mc">
+      <rect x="660" y="40" width="500" height="595" rx="24"/>
+    </clipPath>
+  </defs>
+
+  <!-- BG -->
+  <rect width="1200" height="675" fill="#060c1a"/>
+
+  <!-- Aurora blobs -->
+  <ellipse cx="180" cy="200" rx="380" ry="300" fill="url(#b1)" filter="url(#bl)"/>
+  <ellipse cx="1100" cy="500" rx="340" ry="280" fill="url(#b2)" filter="url(#bl2)"/>
+  <ellipse cx="650" cy="620" rx="280" ry="200" fill="url(#b3)" filter="url(#bl2)"/>
+
+  <!-- Dot grid -->
+  <pattern id="dots" x="0" y="0" width="24" height="24" patternUnits="userSpaceOnUse">
+    <circle cx="1" cy="1" r="0.9" fill="rgba(255,255,255,0.022)"/>
+  </pattern>
+  <rect width="1200" height="675" fill="url(#dots)"/>
+
+  <!-- ── LEFT CONTENT ── -->
+
+  <!-- Badge -->
+  <rect x="52" y="52" width="120" height="26" rx="8" fill="rgba(139,92,246,0.15)" stroke="rgba(139,92,246,0.3)" stroke-width="1"/>
+  <text x="112" y="70" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="12" font-weight="700" fill="rgba(196,181,253,0.9)" letter-spacing="1">免费 · 无广告</text>
+
+  <!-- Main title -->
+  <text x="52" y="148" font-family="-apple-system,system-ui,sans-serif" font-size="72" font-weight="900" letter-spacing="-2" fill="url(#g1)" filter="drop-shadow(0 0 24px rgba(139,92,246,0.45))">智航 PRO</text>
+
+  <!-- Tagline -->
+  <text x="52" y="192" font-family="-apple-system,system-ui,sans-serif" font-size="20" fill="rgba(148,163,184,0.85)" letter-spacing="3">你的高效起点 · 聚合全网精选</text>
+
+  <!-- Divider -->
+  <line x1="52" y1="218" x2="580" y2="218" stroke="rgba(139,92,246,0.2)" stroke-width="1"/>
+
+  <!-- Feature list -->
+  <g font-family="-apple-system,system-ui,sans-serif" font-size="17" fill="rgba(241,245,249,0.88)">
+    <text x="52" y="258">🤖  12 个 AI 对话工具  —  ChatGPT · Claude · DeepSeek</text>
+    <text x="52" y="298">🎨  AI 创作  —  Midjourney · Runway · Suno</text>
+    <text x="52" y="338">🛡  13 个免费 VPN  —  Proton · Windscribe · Psiphon</text>
+    <text x="52" y="378">💻  开发资源  —  GitHub · MDN · DevDocs · Regex101</text>
+    <text x="52" y="418">🧰  内置工具箱  —  快记本 · 待办清单 · 番茄钟</text>
+    <text x="52" y="458">📦  共 13 分类，100+ 精选站点</text>
+  </g>
+
+  <!-- Highlight dots -->
+  <circle cx="44" cy="253" r="3" fill="#8b5cf6"/>
+  <circle cx="44" cy="293" r="3" fill="#ec4899"/>
+  <circle cx="44" cy="333" r="3" fill="#8b5cf6"/>
+  <circle cx="44" cy="373" r="3" fill="#ec4899"/>
+  <circle cx="44" cy="413" r="3" fill="#8b5cf6"/>
+  <circle cx="44" cy="453" r="3" fill="#ec4899"/>
+
+  <!-- CTA button -->
+  <rect x="52" y="498" width="220" height="48" rx="14" fill="url(#gbtn)"/>
+  <text x="162" y="528" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="16" font-weight="700" fill="#fff" letter-spacing="1">立即访问 →</text>
+
+  <!-- URL -->
+  <text x="52" y="572" font-family="monospace" font-size="14" fill="rgba(148,163,184,0.5)">zho91.github.io/nav</text>
+
+  <!-- PWA badge -->
+  <rect x="52" y="590" width="90" height="22" rx="6" fill="rgba(16,185,129,0.12)" stroke="rgba(52,211,153,0.25)" stroke-width="1"/>
+  <text x="97" y="606" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="11" font-weight="700" fill="#34d399">PWA 支持</text>
+  <rect x="152" y="590" width="104" height="22" rx="6" fill="rgba(139,92,246,0.12)" stroke="rgba(139,92,246,0.25)" stroke-width="1"/>
+  <text x="204" y="606" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="11" font-weight="700" fill="rgba(196,181,253,0.9)">安装到桌面</text>
+  <rect x="266" y="590" width="90" height="22" rx="6" fill="rgba(59,130,246,0.12)" stroke="rgba(96,165,250,0.25)" stroke-width="1"/>
+  <text x="311" y="606" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="11" font-weight="700" fill="#60a5fa">完全免费</text>
+
+  <!-- ── RIGHT MOCKUP ── -->
+  <g clip-path="url(#mc)">
+    <!-- Mockup bg -->
+    <rect x="660" y="40" width="500" height="595" rx="24" fill="#0b1120"/>
+    <rect x="660" y="40" width="500" height="595" rx="24" fill="url(#gcard)"/>
+
+    <!-- Browser bar -->
+    <rect x="660" y="40" width="500" height="40" rx="0" fill="rgba(255,255,255,0.03)"/>
+    <circle cx="694" cy="60" r="5" fill="rgba(239,68,68,0.5)"/>
+    <circle cx="712" cy="60" r="5" fill="rgba(245,158,11,0.5)"/>
+    <circle cx="730" cy="60" r="5" fill="rgba(16,185,129,0.5)"/>
+    <rect x="755" y="50" width="340" height="20" rx="6" fill="rgba(255,255,255,0.06)"/>
+    <text x="925" y="64" text-anchor="middle" font-family="monospace" font-size="10" fill="rgba(148,163,184,0.5)">zho91.github.io/nav</text>
+
+    <!-- Clock area -->
+    <text x="690" y="110" font-family="-apple-system,system-ui,sans-serif" font-size="22" font-weight="800" letter-spacing="2" fill="url(#g1)">13:45:22</text>
+    <text x="690" y="128" font-family="-apple-system,system-ui,sans-serif" font-size="10" fill="rgba(148,163,184,0.5)">2026/5/21 周三  ☀ 下午好</text>
+
+    <!-- Logo -->
+    <text x="910" y="115" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="28" font-weight="900" fill="url(#g1)">智航 PRO</text>
+    <text x="910" y="133" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="10" fill="rgba(148,163,184,0.4)" letter-spacing="2">你的高效起点</text>
+
+    <!-- Search bar -->
+    <rect x="675" y="148" width="470" height="36" rx="12" fill="rgba(15,23,42,0.88)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <text x="700" y="171" font-family="-apple-system,system-ui,sans-serif" font-size="13" fill="rgba(148,163,184,0.3)">🔍  搜索站内 / Enter 跳转全网...</text>
+
+    <!-- Engine pills -->
+    <g font-family="-apple-system,system-ui,sans-serif" font-size="10" font-weight="600">
+      <rect x="675" y="193" width="54" height="20" rx="6" fill="url(#gbtn)"/>
+      <text x="702" y="207" text-anchor="middle" fill="#fff">Google</text>
+      <rect x="736" y="193" width="40" height="20" rx="6" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <text x="756" y="207" text-anchor="middle" fill="rgba(148,163,184,0.7)">Bing</text>
+      <rect x="783" y="193" width="40" height="20" rx="6" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <text x="803" y="207" text-anchor="middle" fill="rgba(148,163,184,0.7)">百度</text>
+      <rect x="830" y="193" width="52" height="20" rx="6" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <text x="856" y="207" text-anchor="middle" fill="rgba(148,163,184,0.7)">GitHub</text>
+    </g>
+
+    <!-- Category pills -->
+    <g font-family="-apple-system,system-ui,sans-serif" font-size="10" font-weight="600">
+      <rect x="675" y="222" width="44" height="20" rx="7" fill="url(#gbtn)"/>
+      <text x="697" y="236" text-anchor="middle" fill="#fff">⭐ 全部</text>
+      <rect x="726" y="222" width="58" height="20" rx="7" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <text x="755" y="236" text-anchor="middle" fill="rgba(148,163,184,0.6)">🤖 AI对话</text>
+      <rect x="791" y="222" width="58" height="20" rx="7" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <text x="820" y="236" text-anchor="middle" fill="rgba(148,163,184,0.6)">🎨 AI创作</text>
+      <rect x="856" y="222" width="58" height="20" rx="7" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <text x="885" y="236" text-anchor="middle" fill="rgba(148,163,184,0.6)">🛡 翻墙</text>
+    </g>
+
+    <!-- Site cards row 1 -->
+    <g>
+      <!-- Card 1 -->
+      <rect x="675" y="252" width="108" height="88" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <rect x="689" y="264" width="34" height="34" rx="9" fill="rgba(255,255,255,0.06)"/>
+      <text x="706" y="286" text-anchor="middle" font-size="16">💬</text>
+      <text x="729" y="305" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="11" font-weight="700" fill="rgba(241,245,249,0.9)">ChatGPT</text>
+      <text x="729" y="318" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="9" fill="rgba(148,163,184,0.5)">OpenAI旗舰模型</text>
+      <rect x="749" y="256" width="26" height="14" rx="3" fill="rgba(239,68,68,0.18)" stroke="rgba(248,113,113,0.2)" stroke-width="1"/>
+      <text x="762" y="266" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="8" font-weight="800" fill="#f87171">HOT</text>
+
+      <!-- Card 2 -->
+      <rect x="791" y="252" width="108" height="88" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <rect x="805" y="264" width="34" height="34" rx="9" fill="rgba(255,255,255,0.06)"/>
+      <text x="822" y="286" text-anchor="middle" font-size="16">🟣</text>
+      <text x="845" y="305" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="11" font-weight="700" fill="rgba(241,245,249,0.9)">Claude</text>
+      <text x="845" y="318" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="9" fill="rgba(148,163,184,0.5)">Anthropic助手</text>
+
+      <!-- Card 3 -->
+      <rect x="907" y="252" width="108" height="88" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <rect x="921" y="264" width="34" height="34" rx="9" fill="rgba(255,255,255,0.06)"/>
+      <text x="938" y="286" text-anchor="middle" font-size="16">🐋</text>
+      <text x="961" y="305" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="11" font-weight="700" fill="rgba(241,245,249,0.9)">DeepSeek</text>
+      <text x="961" y="318" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="9" fill="rgba(148,163,184,0.5)">深度求索大模型</text>
+      <rect x="981" y="256" width="26" height="14" rx="3" fill="rgba(239,68,68,0.18)" stroke="rgba(248,113,113,0.2)" stroke-width="1"/>
+      <text x="994" y="266" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="8" font-weight="800" fill="#f87171">HOT</text>
+    </g>
+
+    <!-- Site cards row 2 -->
+    <g>
+      <rect x="675" y="350" width="108" height="88" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <rect x="689" y="362" width="34" height="34" rx="9" fill="rgba(255,255,255,0.06)"/>
+      <text x="706" y="384" text-anchor="middle" font-size="16">🔐</text>
+      <text x="729" y="403" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="11" font-weight="700" fill="rgba(241,245,249,0.9)">ProtonVPN</text>
+      <text x="729" y="416" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="9" fill="rgba(148,163,184,0.5)">永久免费无日志</text>
+      <rect x="749" y="354" width="28" height="14" rx="3" fill="rgba(59,130,246,0.18)" stroke="rgba(96,165,250,0.2)" stroke-width="1"/>
+      <text x="763" y="364" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="8" font-weight="800" fill="#60a5fa">FREE</text>
+
+      <rect x="791" y="350" width="108" height="88" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <rect x="805" y="362" width="34" height="34" rx="9" fill="rgba(255,255,255,0.06)"/>
+      <text x="822" y="384" text-anchor="middle" font-size="16">🐙</text>
+      <text x="845" y="403" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="11" font-weight="700" fill="rgba(241,245,249,0.9)">GitHub</text>
+      <text x="845" y="416" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="9" fill="rgba(148,163,184,0.5)">代码托管圣地</text>
+
+      <rect x="907" y="350" width="108" height="88" rx="12" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+      <rect x="921" y="362" width="34" height="34" rx="9" fill="rgba(255,255,255,0.06)"/>
+      <text x="938" y="384" text-anchor="middle" font-size="16">🎨</text>
+      <text x="961" y="403" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="11" font-weight="700" fill="rgba(241,245,249,0.9)">Midjourney</text>
+      <text x="961" y="416" text-anchor="middle" font-family="-apple-system,system-ui,sans-serif" font-size="9" fill="rgba(148,163,184,0.5)">顶尖AI绘图</text>
+    </g>
+
+    <!-- Toolbox preview strip -->
+    <rect x="675" y="452" width="470" height="56" rx="10" fill="rgba(139,92,246,0.08)" stroke="rgba(139,92,246,0.15)" stroke-width="1"/>
+    <text x="700" y="472" font-family="-apple-system,system-ui,sans-serif" font-size="11" font-weight="700" fill="rgba(196,181,253,0.7)" letter-spacing="1">🧰 工具箱</text>
+    <g font-family="-apple-system,system-ui,sans-serif" font-size="12" fill="rgba(241,245,249,0.75)">
+      <text x="700" y="496">📝 快记本</text>
+      <text x="790" y="496">✅ 待办清单</text>
+      <text x="900" y="496">⏱ 番茄钟</text>
+      <text x="990" y="496">🔖 收藏</text>
+    </g>
+
+    <!-- Bottom stats -->
+    <rect x="675" y="518" width="470" height="44" rx="10" fill="rgba(255,255,255,0.025)"/>
+    <g font-family="-apple-system,system-ui,sans-serif" text-anchor="middle">
+      <text x="762" y="535" font-size="18" font-weight="900" fill="url(#g1)">13</text>
+      <text x="762" y="552" font-size="10" fill="rgba(148,163,184,0.5)">个分类</text>
+      <line x1="820" y1="522" x2="820" y2="558" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <text x="878" y="535" font-size="18" font-weight="900" fill="url(#g1)">100+</text>
+      <text x="878" y="552" font-size="10" fill="rgba(148,163,184,0.5)">精选站点</text>
+      <line x1="936" y1="522" x2="936" y2="558" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <text x="994" y="535" font-size="18" font-weight="900" fill="url(#g1)">13</text>
+      <text x="994" y="552" font-size="10" fill="rgba(148,163,184,0.5)">免费VPN</text>
+      <line x1="676" y1="522" x2="676" y2="558" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <text x="728" y="535" font-size="10" fill="rgba(148,163,184,0.5)">免费</text>
+      <text x="728" y="549" font-size="10" fill="rgba(148,163,184,0.5)">无广告</text>
+    </g>
+
+    <!-- Mockup border overlay -->
+    <rect x="660" y="40" width="500" height="595" rx="24" fill="none" stroke="rgba(139,92,246,0.25)" stroke-width="1.5"/>
+  </g>
+
+  <!-- Glow behind mockup -->
+  <ellipse cx="910" cy="337" rx="200" ry="250" fill="rgba(139,92,246,0.06)" filter="url(#bl2)"/>
+</svg>
