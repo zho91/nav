@@ -80,18 +80,20 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(152px,1fr));gap:10px;margin-bottom:5px}
 /* list mode */
 .list .grid{grid-template-columns:1fr}
-.list .scard{flex-direction:row;align-items:center;gap:12px;padding:11px 14px;border-radius:13px}
-.list .sico2{margin-bottom:0;flex-shrink:0}
+.list .scard{flex-direction:row;align-items:center;gap:12px;padding:11px 14px;border-radius:14px}
+.list .sico2{margin-bottom:0;flex-shrink:0;width:40px;height:40px;font-size:19px}
 .list .sinf{flex:1;min-width:0}
 .list .sdesc{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;-webkit-line-clamp:unset}
 /* card */
-.scard{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:14px;text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.175,.885,.32,1.275),background .22s,border-color .22s,box-shadow .22s;animation:fup .45s cubic-bezier(.34,1.56,.64,1) both}
+.scard{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:14px 14px 13px;text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;position:relative;overflow:hidden;transition:transform .3s cubic-bezier(.175,.885,.32,1.275),background .22s,border-color .22s,box-shadow .22s;animation:fup .45s cubic-bezier(.34,1.56,.64,1) both}
+.scard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--cc,#8b5cf6) 0%,transparent 70%);border-radius:18px 18px 0 0;opacity:.9}
+.scard::after{content:'';position:absolute;inset:0;border-radius:18px;background:linear-gradient(135deg,var(--cc,#8b5cf6),transparent);opacity:.04;pointer-events:none}
 @keyframes fup{from{opacity:0;transform:translateY(22px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
-.scard:hover{background:var(--hov);border-color:rgba(139,92,246,.4);transform:translateY(-5px) scale(1.02);box-shadow:0 18px 42px rgba(0,0,0,.55),0 0 24px var(--glow)}
-.sico2{width:42px;height:42px;background:rgba(255,255,255,.06);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:10px;flex-shrink:0;transition:.22s}
-.scard:hover .sico2{background:rgba(139,92,246,.18);box-shadow:0 0 10px var(--glow)}
-.sico2 img{width:26px;height:26px;object-fit:contain;border-radius:5px}
-.sname{font-size:13px;font-weight:700;color:var(--txt);margin-bottom:4px;line-height:1.3}
+.scard:hover{background:var(--hov);border-color:var(--cc,rgba(139,92,246,.4));transform:translateY(-5px) scale(1.02);box-shadow:0 18px 42px rgba(0,0,0,.55),0 0 24px var(--glow)}
+.sico2{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:11px;flex-shrink:0;transition:.22s}
+.scard:hover .sico2{filter:brightness(1.25);box-shadow:0 0 12px var(--cc,var(--glow))}
+.sico2 img{width:28px;height:28px;object-fit:contain;border-radius:6px}
+.sname{font-size:14px;font-weight:700;color:var(--txt);margin-bottom:4px;line-height:1.3}
 .sdesc{font-size:11px;color:var(--dim);line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .stag{font-size:9px;font-weight:800;padding:2px 6px;border-radius:4px;position:absolute;top:9px;right:9px;letter-spacing:.7px}
 .th{background:rgba(239,68,68,.18);color:#f87171;border:1px solid rgba(248,113,113,.22)}
@@ -928,7 +930,7 @@ function renderSites(){
         try{nm=s.n.replace(new RegExp('('+escRe(q)+')','gi'),'<em class="hl">$1</em>');}catch(e){}
       }
       var tag=s.t?('<span class="stag '+(TCLS[s.t]||'tn')+'">'+TLBL[s.t]+'</span>'):'';
-      html+='<a href="'+s.u+'" target="_blank" rel="noopener" class="scard" style="animation-delay:'+delay+'ms">'+tag+'<div class="sico2">'+fav(s.u,s.e)+'</div><div class="sinf"><div class="sname">'+nm+'</div><div class="sdesc">'+escHtml(s.d)+'</div></div></a>';
+      html+='<a href="'+s.u+'" target="_blank" rel="noopener" class="scard" style="animation-delay:'+delay+'ms;--cc:'+cc+'">'+tag+'<div class="sico2" style="background:'+cc+'1a">'+fav(s.u,s.e)+'</div><div class="sinf"><div class="sname">'+nm+'</div><div class="sdesc">'+escHtml(s.d)+'</div></div></a>';
     });
     html+='</div>';
   });
