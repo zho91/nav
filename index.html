@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>智航 Pro · 你的高效起点</title>
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#8b5cf6">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="智航PRO">
+    <link rel="apple-touch-icon" href="icon.svg">
+    <link rel="icon" type="image/svg+xml" href="icon.svg">
     <style>
         :root {
             --bg:#060c1a; --card:rgba(255,255,255,.04); --card-hov:rgba(255,255,255,.08);
@@ -188,11 +197,32 @@
         .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:499;display:none;backdrop-filter:blur(2px);}
         .overlay.on{display:block;}
         @media(max-width:640px){.grid{grid-template-columns:repeat(2,1fr);}.logo{font-size:32px;}.kbd-hint{display:none;}.toolbox{width:100%;right:-100%;}.top-bar,.search-sticky,.main,.pills-wrap,.toolbar{padding-left:16px;padding-right:16px;}.header{padding:18px 16px 12px;}}
+        /* PWA install banner */
+        .install-banner{position:fixed;bottom:0;left:0;right:0;z-index:600;padding:14px 20px;background:rgba(9,15,28,.98);border-top:1px solid rgba(139,92,246,.3);backdrop-filter:blur(20px);display:flex;align-items:center;gap:14px;transform:translateY(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);}
+        .install-banner.show{transform:translateY(0);}
+        .install-icon{width:44px;height:44px;border-radius:12px;flex-shrink:0;background:linear-gradient(135deg,#8b5cf6,#ec4899);display:flex;align-items:center;justify-content:center;font-size:22px;}
+        .install-text{flex:1;min-width:0;}
+        .install-text strong{display:block;font-size:14px;font-weight:700;color:var(--text);}
+        .install-text span{font-size:12px;color:var(--muted);}
+        .install-btn{padding:9px 18px;border-radius:11px;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;flex-shrink:0;font-family:inherit;white-space:nowrap;}
+        .install-btn:hover{opacity:.9;}
+        .install-dismiss{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.06);border:none;color:var(--muted);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+        .install-dismiss:hover{background:rgba(255,255,255,.12);color:var(--text);}
     </style>
 </head>
 <body>
 <div class="aurora"><div class="ab"></div><div class="ab"></div><div class="ab"></div><div class="ab"></div></div>
 <div class="toast" id="toast"></div>
+<!-- PWA Install Banner -->
+<div class="install-banner" id="installBanner">
+    <div class="install-icon">🧭</div>
+    <div class="install-text">
+        <strong>安装智航 Pro</strong>
+        <span>添加到桌面，像 App 一样使用</span>
+    </div>
+    <button class="install-btn" id="installBtn">安装</button>
+    <button class="install-dismiss" onclick="dismissInstall()">✕</button>
+</div>
 <div class="overlay" id="overlay" onclick="closeToolbox()"></div>
 
 <!-- TOOLBOX PANEL -->
@@ -610,6 +640,44 @@ function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t
 function ls(k){try{return localStorage.getItem(k);}catch{return null;}}
 function lss(k,v){try{localStorage.setItem(k,v);}catch{}}
 function escH(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+// ── PWA ──────────────────────────────────────────────
+// Service Worker
+if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('./sw.js').catch(()=>{});
+}
+
+// URL shortcut open tool
+(function(){
+    const p=new URLSearchParams(location.search).get('tool');
+    if(p) setTimeout(()=>openToolbox(p),300);
+})();
+
+// Install prompt
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{
+    e.preventDefault();
+    deferredPrompt=e;
+    if(!ls('install-dismissed')){
+        setTimeout(()=>document.getElementById('installBanner').classList.add('show'),2000);
+    }
+});
+document.getElementById('installBtn').addEventListener('click',async()=>{
+    if(!deferredPrompt)return;
+    deferredPrompt.prompt();
+    const{outcome}=await deferredPrompt.userChoice;
+    deferredPrompt=null;
+    document.getElementById('installBanner').classList.remove('show');
+    if(outcome==='accepted') toast('🎉 智航 Pro 已安装到桌面！');
+});
+window.dismissInstall=function(){
+    document.getElementById('installBanner').classList.remove('show');
+    lss('install-dismissed','1');
+};
+window.addEventListener('appinstalled',()=>{
+    document.getElementById('installBanner').classList.remove('show');
+    toast('✅ 安装成功！可从桌面启动智航 Pro');
+});
 </script>
 </body>
 </html>
