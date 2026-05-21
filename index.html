@@ -898,9 +898,7 @@ function renderSites(){
     main.innerHTML='<div class="empty"><div class="big">🔍</div>没有找到「'+escHtml(q)+'」<br><small style="display:block;margin-top:8px;font-size:13px">按 Enter 直接搜索全网</small></div>';
     return;
   }
-  var showVpn=!q&&(activeCat==="全部"||activeCat.indexOf("翻墙")>=0);
-  var showHost=!q&&(activeCat==="全部"||activeCat.indexOf("部署")>=0);
-  var html=(showVpn?renderVpnSection():'')+(showHost?renderHostSection():'');
+  var html='';
   filtered.forEach(function(cat,ci){
     var cc=CAT_COLORS[cat.name]||'var(--pu)';
     html+='<div class="sec-hd"><div class="sec-t" style="color:'+cc+'">'+cat.name+'</div><div class="sec-ln" style="background:linear-gradient(to right,'+cc+'4d,transparent)"></div><div class="sec-n">'+cat.sites.length+'</div></div><div class="grid">';
