@@ -56,10 +56,6 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;bac
 .sclr{position:absolute;right:16px;top:50%;transform:translateY(-50%);width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.08);border:none;color:var(--dim);cursor:pointer;font-size:12px;display:none;align-items:center;justify-content:center}
 .sclr.on{display:flex}
 .sclr:hover{background:rgba(255,255,255,.16);color:var(--txt)}
-.engrow{display:flex;gap:6px;justify-content:center;margin-top:11px;flex-wrap:wrap}
-.ebtn{font-size:12px;padding:6px 16px;border-radius:20px;background:var(--card);border:1px solid var(--bd);color:var(--dim);cursor:pointer;font-family:inherit;transition:.2s}
-.ebtn.on{background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;border-color:transparent;box-shadow:0 4px 14px var(--glow)}
-.ebtn:hover:not(.on){border-color:rgba(139,92,246,.4);color:var(--txt)}
 /* toolbar */
 .tbar{max-width:1280px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 22px 5px;flex-wrap:wrap;gap:5px}
 .tgrp{display:flex;gap:5px;flex-wrap:wrap}
@@ -495,7 +491,6 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
         <div class="srec-chips" id="srecChips"></div>
       </div>
     </div>
-    <div class="engrow" id="engrow"></div>
   </div>
 </div>
 <div class="tbar">
@@ -839,14 +834,7 @@ function tickClock(){
 tickClock(); // 立即启动
 
 // ── 搜索引擎 ──
-function renderEng(){
-  document.getElementById('engrow').innerHTML=ENG.map(function(e,i){
-    return '<button class="ebtn'+(i===activeEng?' on':'')+'" onclick="setEng('+i+')">'+e.n+'</button>';
-  }).join('');
-}
 function doSearch(){var q=document.getElementById('q').value.trim();if(q){saveHistory(q);window.open(ENG[activeEng].u+encodeURIComponent(q),'_blank');}else{document.getElementById('q').focus();}}
-function setEng(i){var q=document.getElementById('q').value.trim();activeEng=i;sl('ne',i);renderEng();if(q){saveHistory(q);window.open(ENG[i].u+encodeURIComponent(q),'_blank');}else{window.open(ENG[i].h,'_blank');}}
-window.setEng=setEng;
 
 // ── 分类 pills ──
 function renderPills(){
@@ -1351,7 +1339,6 @@ function init(){
   var total=0;CATS.forEach(function(c){total+=c.sites.length;});
   countUp(document.getElementById('catN'), CATS.length);
   countUp(document.getElementById('siteN'), total);
-  renderEng();
   renderPills();
   applyView();
   renderSites();
