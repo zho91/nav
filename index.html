@@ -1157,9 +1157,16 @@ function fetchWeather(){
 }
 
 // ── 热搜 ──
+var PROXY='https://api.allorigins.win/raw?url=';
+var PROXY2='https://corsproxy.io/?';
+function mkParseTen(d){return d.code===200&&d.data?d.data.map(function(it){return{title:it.name,url:it.url};}):null;}
+function mkParseVv(d){return d.success&&d.data?d.data.map(function(it){return{title:it.title,url:it.url};}):null;}
 var HOT_APIS=[
-  {url:'https://tenapi.cn/v2/weibohot',parse:function(d){return d.code===200&&d.data?d.data.map(function(it){return{title:it.name,url:it.url};}):null;}},
-  {url:'https://api.vvhan.com/api/hotlist?type=wbHot',parse:function(d){return d.success&&d.data?d.data.map(function(it){return{title:it.title,url:it.url};}):null;}},
+  {url:'https://tenapi.cn/v2/weibohot',parse:mkParseTen},
+  {url:'https://api.vvhan.com/api/hotlist?type=wbHot',parse:mkParseVv},
+  {url:PROXY+encodeURIComponent('https://tenapi.cn/v2/weibohot'),parse:mkParseTen},
+  {url:PROXY2+encodeURIComponent('https://tenapi.cn/v2/weibohot'),parse:mkParseTen},
+  {url:PROXY+encodeURIComponent('https://api.vvhan.com/api/hotlist?type=wbHot'),parse:mkParseVv},
 ];
 function tryFetchHot(idx){
   if(idx>=HOT_APIS.length)return;
@@ -1216,9 +1223,14 @@ window.applyThm=applyThm;window.toggleThm=toggleThm;
 
 // ── 资讯热点 ──
 function mkApis(t,v){
+  var tenUrl='https://tenapi.cn/v2/'+t;
+  var vvUrl='https://api.vvhan.com/api/hotlist?type='+v;
   return [
-    {url:'https://tenapi.cn/v2/'+t,parse:function(d){return d.code===200&&d.data?d.data.map(function(it){return{title:it.name,url:it.url};}):null;}},
-    {url:'https://api.vvhan.com/api/hotlist?type='+v,parse:function(d){return d.success&&d.data?d.data.map(function(it){return{title:it.title,url:it.url};}):null;}},
+    {url:tenUrl,parse:mkParseTen},
+    {url:vvUrl,parse:mkParseVv},
+    {url:PROXY+encodeURIComponent(tenUrl),parse:mkParseTen},
+    {url:PROXY2+encodeURIComponent(tenUrl),parse:mkParseTen},
+    {url:PROXY+encodeURIComponent(vvUrl),parse:mkParseVv},
   ];
 }
 var NEWS_SRC={
