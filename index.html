@@ -184,14 +184,18 @@ em.hl{font-style:normal;color:#f472b6;background:rgba(244,114,182,.12);padding:0
 .bmdel:hover{background:rgba(239,68,68,.15);color:var(--rd)}
 .bmempty{text-align:center;padding:20px;color:var(--dim);font-size:13px}
 /* fabs */
-.fabs{position:fixed;bottom:24px;right:22px;display:flex;flex-direction:column;gap:8px;z-index:400}
-.fab{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:18px;transition:.2s;box-shadow:0 4px 18px rgba(0,0,0,.5);border:none}
-.fab1{background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;position:relative}
-.fab1:hover{transform:scale(1.1);box-shadow:0 8px 26px var(--glow)}
-.fbadge{position:absolute;top:-3px;right:-3px;width:15px;height:15px;background:var(--rd);border-radius:50%;font-size:9px;font-weight:800;color:#fff;display:none;align-items:center;justify-content:center;border:2px solid var(--bg)}
+.fabs{position:fixed;bottom:28px;right:22px;display:flex;flex-direction:column;gap:10px;z-index:400}
+.fab{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:20px;transition:.25s cubic-bezier(.34,1.56,.64,1);border:none}
+.fab1{background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;position:relative;box-shadow:0 4px 20px rgba(139,92,246,.45),0 0 0 0 rgba(139,92,246,.3)}
+.fab1:hover{transform:scale(1.12);box-shadow:0 8px 32px rgba(139,92,246,.6),0 0 0 6px rgba(139,92,246,.12)}
+.fab1:active{transform:scale(.96)}
+@keyframes fabPulse{0%,100%{box-shadow:0 4px 20px rgba(139,92,246,.45),0 0 0 0 rgba(139,92,246,.3)}50%{box-shadow:0 4px 20px rgba(236,72,153,.45),0 0 0 8px rgba(236,72,153,.08)}}
+.fab1{animation:fabPulse 3s ease-in-out infinite}
+.fab1:hover{animation:none}
+.fbadge{position:absolute;top:-2px;right:-2px;width:16px;height:16px;background:var(--rd);border-radius:50%;font-size:9px;font-weight:800;color:#fff;display:none;align-items:center;justify-content:center;border:2px solid var(--bg)}
 .fbadge.on{display:flex}
-.fab2{background:rgba(15,23,42,.88);color:var(--dim);border:1px solid var(--bd);backdrop-filter:blur(10px)}
-.fab2:hover{color:var(--txt)}
+.fab2{width:40px;height:40px;background:rgba(15,23,42,.88);color:var(--dim);border:1px solid var(--bd);backdrop-filter:blur(10px);font-size:16px;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.fab2:hover{color:var(--txt);transform:scale(1.1)}
 /* keyboard hint */
 .kbhint{position:fixed;bottom:24px;left:22px;font-size:11px;color:var(--dim);background:rgba(15,23,42,.88);border:1px solid var(--bd);padding:5px 11px;border-radius:9px;backdrop-filter:blur(12px);z-index:200}
 kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:1px 4px;border-radius:3px;font-family:monospace;margin:0 2px}
@@ -520,11 +524,6 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
 <div class="tbar">
   <div class="tgrp">
     <button class="tbtn" onclick="random()">🎲 随机发现</button>
-    <button class="tbtn" onclick="openTbx('todo')">✅ 待办</button>
-    <button class="tbtn" onclick="openTbx('pomo')">⏱ 番茄钟</button>
-    <button class="tbtn" onclick="openTbx('note')">📝 快记</button>
-  </div>
-  <div class="tgrp">
     <button class="tbtn" id="viewbtn" onclick="toggleView()">☰ 列表</button>
     <button class="tbtn" onclick="openTbx('news')">📰 热点</button>
     <div class="tbtn thm-wrap" id="thmBtn" onclick="toggleThm()" style="cursor:pointer">🎨 主题<div class="thm-pop" id="thmPop"></div></div>
