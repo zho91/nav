@@ -9,6 +9,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="智航PRO">
 <link rel="apple-touch-icon" href="icon.svg">
+<script src="https://pl29511103.effectivecpmnetwork.com/25/b8/a7/25b8a73a49202f4fcfd980841a8328d8.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-9G7X1BEB5W"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-9G7X1BEB5W');</script>
 <style>
@@ -1243,26 +1244,52 @@ function fetchWeather(){
 // ── 热搜 ──
 function fetchHot(){}
 
-// ── 自制联盟广告位 ──
+// ── 广告位：Adsterra 优先，加载失败自动显示联盟横幅 ──
 function renderAffBars(){
+  // ── 728×90 bar（桌面）──
   var bar=document.getElementById('affBar');
   if(bar){
-    var h='<div class="aff-bar"><div class="aff-bar-ttl">🔥 推荐VPN</div><div class="aff-bar-items">';
+    // 联盟横幅（默认可见）
+    var affH='<div class="aff-bar" id="affBarInner"><div class="aff-bar-ttl">🔥 推荐VPN</div><div class="aff-bar-items">';
     VPN_AFF.forEach(function(v){
-      h+='<a class="aff-bar-it" href="'+v.link+'" target="_blank" rel="noopener sponsored">'
+      affH+='<a class="aff-bar-it" href="'+v.link+'" target="_blank" rel="noopener sponsored">'
         +'<span class="aff-bar-ico">'+v.ico+'</span>'
         +'<span class="aff-bar-nm">'+v.name+'</span>'
         +'<span class="aff-bar-disc">'+v.disc+'</span>'
         +'</a>';
     });
-    h+='</div></div>';
-    bar.innerHTML=h;
+    affH+='</div></div>';
+    bar.innerHTML=affH;
+    // Adsterra 728×90（隐藏，加载成功后替换）
+    var adWrap=document.createElement('div');
+    adWrap.id='adstrBar';adWrap.style.cssText='display:none;justify-content:center;align-items:center;';
+    var sc1=document.createElement('script');
+    sc1.text="atOptions={'key':'b690053fb9e3b2d86118acf00a779f6e','format':'iframe','height':90,'width':728,'params':{}};";
+    var sc2=document.createElement('script');sc2.src='https://www.highperformanceformat.com/b690053fb9e3b2d86118acf00a779f6e/invoke.js';
+    adWrap.appendChild(sc1);adWrap.appendChild(sc2);bar.appendChild(adWrap);
+    setTimeout(function(){
+      if(adWrap.querySelector('iframe')){
+        var inner=document.getElementById('affBarInner');if(inner)inner.style.display='none';
+        adWrap.style.display='flex';
+      }
+    },2800);
   }
+  // ── 300×250 box ──
   var box=document.getElementById('affBox');
   if(box&&VPN_AFF.length){
+    // Adsterra 300×250（隐藏，加载成功后显示在联盟卡上方）
+    var adBox=document.createElement('div');
+    adBox.id='adstrBox';adBox.style.cssText='display:none;justify-content:center;margin-bottom:12px;';
+    var bs1=document.createElement('script');
+    bs1.text="atOptions={'key':'a370265a452f88db1b676535bef09767','format':'iframe','height':250,'width':300,'params':{}};";
+    var bs2=document.createElement('script');bs2.src='https://www.highperformanceformat.com/a370265a452f88db1b676535bef09767/invoke.js';
+    adBox.appendChild(bs1);adBox.appendChild(bs2);box.appendChild(adBox);
+    setTimeout(function(){if(adBox.querySelector('iframe')){adBox.style.display='flex';}},2800);
+    // 联盟卡（始终显示）
     var v=VPN_AFF[0];
     var tags='';v.tags.forEach(function(t){tags+='<span class="vtag vtag-'+t.c+'">'+t.l+'</span>';});
-    box.innerHTML='<a class="aff-box-card" href="'+v.link+'" target="_blank" rel="noopener sponsored">'
+    var card=document.createElement('div');
+    card.innerHTML='<a class="aff-box-card" href="'+v.link+'" target="_blank" rel="noopener sponsored">'
       +'<div class="aff-box-disc">'+v.disc+'</div>'
       +'<div class="aff-box-top"><div class="aff-box-ico" style="background:'+v.bg+'">'+v.ico+'</div>'
       +'<div><div class="aff-box-nm">'+v.name+'</div><div class="aff-box-stars">'+v.stars+'</div></div></div>'
@@ -1270,6 +1297,7 @@ function renderAffBars(){
       +'<div class="aff-box-price"><span class="aff-box-p">'+v.price+'</span><span class="aff-box-pu">'+v.unit+'</span><span class="aff-box-po">'+v.old+'</span></div>'
       +'<span class="aff-box-cta">立即获取 '+v.disc+' 折扣 →</span>'
       +'</a>';
+    box.appendChild(card);
   }
 }
 
