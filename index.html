@@ -320,42 +320,10 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
 .qi-ico img{width:24px;height:24px;object-fit:contain;border-radius:5px}
 .qi-name{font-size:10px;color:var(--dim);white-space:nowrap;font-weight:600;max-width:62px;overflow:hidden;text-overflow:ellipsis;text-align:center}
 @media(max-width:600px){.qbar{padding-left:14px;padding-right:14px}}
-/* ── affiliate bar (728×90) ── */
-.aff-bar{width:100%;max-width:728px;height:90px;border-radius:14px;background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(236,72,153,.07));border:1px solid rgba(139,92,246,.22);display:flex;align-items:center;overflow:hidden;text-decoration:none}
-.aff-bar-ttl{padding:0 14px;font-size:10px;font-weight:800;color:var(--pu);text-transform:uppercase;letter-spacing:1.5px;white-space:nowrap;border-right:1px solid rgba(139,92,246,.15);height:100%;display:flex;align-items:center;flex-shrink:0}
-.aff-bar-items{display:flex;flex:1;height:100%}
-.aff-bar-it{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 10px;border-right:1px solid rgba(255,255,255,.05);text-decoration:none;transition:.18s;gap:3px}
-.aff-bar-it:last-child{border-right:none}
-.aff-bar-it:hover{background:rgba(139,92,246,.12)}
-.aff-bar-ico{font-size:22px;line-height:1}
-.aff-bar-nm{font-size:11px;font-weight:700;color:var(--txt)}
-.aff-bar-disc{font-size:10px;font-weight:800;color:#ef4444;background:rgba(239,68,68,.12);padding:1px 6px;border-radius:4px;letter-spacing:.3px}
-/* ── affiliate box (300×250) ── */
-.aff-box-card{width:300px;border-radius:18px;background:linear-gradient(145deg,rgba(139,92,246,.13),rgba(236,72,153,.08));border:1px solid rgba(139,92,246,.28);padding:18px;display:flex;flex-direction:column;gap:11px;text-decoration:none;transition:.22s;position:relative;overflow:hidden}
-.aff-box-card:hover{border-color:rgba(139,92,246,.55);transform:translateY(-3px);box-shadow:0 14px 36px rgba(0,0,0,.5),0 0 22px var(--glow)}
-.aff-box-card::before{content:'推荐';position:absolute;top:0;left:0;font-size:9px;font-weight:800;letter-spacing:1px;padding:3px 10px 3px 12px;background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;border-radius:18px 0 12px 0}
-.aff-box-disc{position:absolute;top:8px;right:10px;font-size:9px;font-weight:800;padding:2px 8px;border-radius:5px;background:var(--rd);color:#fff;letter-spacing:.4px}
-.aff-box-top{display:flex;align-items:center;gap:11px;margin-top:10px}
-.aff-box-ico{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.aff-box-nm{font-size:15px;font-weight:800;color:var(--txt);line-height:1.2}
-.aff-box-stars{font-size:12px;color:var(--yw);letter-spacing:1px;margin-top:1px}
-.aff-box-price{display:flex;align-items:baseline;gap:6px}
-.aff-box-p{font-size:26px;font-weight:900;color:var(--txt);line-height:1}
-.aff-box-pu{font-size:11px;color:var(--dim)}
-.aff-box-po{font-size:12px;color:var(--dim);text-decoration:line-through}
-.aff-box-cta{display:block;padding:11px;border-radius:11px;background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;font-size:13px;font-weight:800;text-align:center;transition:.18s;box-shadow:0 4px 16px var(--glow);margin-top:auto}
-.aff-box-cta:hover{opacity:.88}
-@media(max-width:600px){.aff-box-card{width:100%;max-width:340px}}
-/* ── 底部 VPN 推广条 ── */
-.vcta{position:fixed;bottom:0;left:0;right:0;z-index:450;background:linear-gradient(135deg,rgba(6,10,22,.98),rgba(20,8,38,.98));border-top:1px solid rgba(139,92,246,.35);backdrop-filter:blur(20px);padding:10px 16px;display:flex;align-items:center;gap:10px;transform:translateY(100%);transition:transform .4s cubic-bezier(.34,1.56,.64,1);box-shadow:0 -6px 28px rgba(0,0,0,.6)}
-.vcta.show{transform:translateY(0)}
-.vcta-ico{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.vcta-txt{flex:1;min-width:0}
-.vcta-nm{font-size:13px;font-weight:800;color:var(--txt)}
-.vcta-sub{font-size:11px;color:var(--dim);margin-top:1px}
-.vcta-btn{padding:9px 14px;border-radius:11px;background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;font-size:12px;font-weight:800;text-decoration:none;flex-shrink:0;white-space:nowrap;box-shadow:0 4px 16px var(--glow);transition:.18s}
-.vcta-btn:hover{opacity:.88}
-.vcta-dis{width:28px;height:28px;border-radius:8px;background:rgba(255,255,255,.07);border:none;color:var(--dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;font-family:inherit}
+/* ── Adsterra ad slots ── */
+.ad-bar{display:flex;justify-content:center;align-items:center;margin:8px auto;max-width:740px;min-height:90px}
+.ad-box{display:flex;justify-content:center;margin:12px auto}
+@media(max-width:740px){.ad-bar{display:none}}
 </style>
 </head>
 <body>
@@ -551,15 +519,18 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
   </div>
 </div>
 <div class="hotbar" id="hotbar" style="display:none"><div class="hotbar-in" id="hotIn"></div></div>
-<div class="ad-bar" id="affBar"></div>
+<div class="ad-bar">
+  <script>atOptions={'key':'b690053fb9e3b2d86118acf00a779f6e','format':'iframe','height':90,'width':728,'params':{}};</script>
+  <script src="https://www.highperformanceformat.com/b690053fb9e3b2d86118acf00a779f6e/invoke.js"></script>
+</div>
 <div class="pillwrap"><div class="pills" id="pills"></div></div>
 <div class="rst" id="rst"></div>
 <div class="main" id="main"></div>
-<div class="ad-box" id="affBox"></div>
+<div class="ad-box">
+  <script>atOptions={'key':'a370265a452f88db1b676535bef09767','format':'iframe','height':250,'width':300,'params':{}};</script>
+  <script src="https://www.highperformanceformat.com/a370265a452f88db1b676535bef09767/invoke.js"></script>
 </div>
-
-<!-- 底部 VPN 推广条（内联，VPN 无法屏蔽）-->
-<div class="vcta" id="vcta"></div>
+</div>
 
 <div class="fabs">
   <button class="fab fab1" onclick="toggleTbx()" title="工具箱">🧰<span class="fbadge" id="fbadge"></span></button>
@@ -747,26 +718,6 @@ var HOST_AFF=[
    link:"https://www.hostinger.com/affiliates"},
 ];
 
-// ── VPN 联盟推广 ── 将每条 link 替换为你的联盟推广专属链接 ──
-var VPN_AFF=[
-  {name:"ExpressVPN",ico:"🛡",bg:"linear-gradient(135deg,#e53e3e,#c53030)",stars:"★★★★★",
-   tags:[{l:"翻墙首选",c:"a"},{l:"速度最快",c:"b"}],
-   price:"$6.67",unit:"/月",old:"$12.95",disc:"49%OFF",
-   link:"https://www.expressvpn.com/partner/"},
-  {name:"NordVPN",ico:"🔒",bg:"linear-gradient(135deg,#4263eb,#2f4acf)",stars:"★★★★★",
-   tags:[{l:"中国可用",c:"a"},{l:"双重加密",c:"b"}],
-   price:"$3.99",unit:"/月",old:"$11.95",disc:"66%OFF",
-   link:"https://nordvpn.com/affiliate/"},
-  {name:"Surfshark",ico:"🦈",bg:"linear-gradient(135deg,#0ea5e9,#0284c7)",stars:"★★★★½",
-   tags:[{l:"不限设备",c:"a"},{l:"性价比高",c:"c"}],
-   price:"$2.49",unit:"/月",old:"$12.95",disc:"81%OFF",
-   link:"https://surfshark.com/affiliates"},
-  {name:"Astrill VPN",ico:"⚡",bg:"linear-gradient(135deg,#f59e0b,#d97706)",stars:"★★★★☆",
-   tags:[{l:"中国专用",c:"a"},{l:"超稳定",c:"c"}],
-   price:"$10",unit:"/月",old:"$15",disc:"限时优惠",
-   link:"https://www.astrill.com/partner/"},
-];
-
 // ── 状态 ──
 var activeCat="全部", activeEng=0, isListView=false, todos=[], bookmarks=[];
 
@@ -881,26 +832,6 @@ function renderHostSection(){
   return h;
 }
 
-// ── VPN 推广卡片 ──
-function renderVpnSection(){
-  var h='<div class="vpnsec">';
-  h+='<div class="vpnsec-hd"><div class="vpnsec-t">🛡 精选 VPN 推荐 <span class="vpnsec-badge">SPONSORED</span></div><span class="vpnsec-sub">安全翻墙 · 专属折扣 · 30天退款</span></div>';
-  h+='<div class="vpncards">';
-  VPN_AFF.forEach(function(v){
-    h+='<a href="'+v.link+'" target="_blank" rel="noopener sponsored" class="vpncard">';
-    h+='<div class="vpndisc">'+v.disc+'</div>';
-    h+='<div class="vpncard-top"><div class="vpnic2" style="background:'+v.bg+'">'+v.ico+'</div>';
-    h+='<div><div class="vpnname">'+v.name+'</div><div class="vpnstars">'+v.stars+'</div></div></div>';
-    h+='<div class="vpntags">';
-    v.tags.forEach(function(t){h+='<span class="vtag vtag-'+t.c+'">'+t.l+'</span>';});
-    h+='</div>';
-    h+='<div class="vpnprice"><span class="vpnp">'+v.price+'</span><span class="vpnpu">'+v.unit+'</span><span class="vpnpo">'+v.old+'</span></div>';
-    h+='<span class="vpncta">立即获取 →</span>';
-    h+='</a>';
-  });
-  h+='</div></div>';
-  return h;
-}
 
 // ── 分类颜色 ──
 var CAT_COLORS={
@@ -977,21 +908,6 @@ function renderSites(){
       html+='<a href="'+s.u+'" target="_blank" rel="noopener" class="scard" style="animation-delay:'+delay+'ms;--cc:'+cc+'">'+tag+'<div class="sico2" style="background:'+cc+'1a">'+fav(s.u,s.e)+'</div><div class="sinf"><div class="sname">'+nm+'</div><div class="sdesc">'+escHtml(s.d)+'</div></div></a>';
     });
     html+='</div>';
-    // 每隔 3 个分类插入一条原生联盟广告卡
-    if(!q&&ci===2&&VPN_AFF.length){
-      var va=VPN_AFF[1]||VPN_AFF[0];
-      html+='<div class="grid" style="margin-top:6px">'
-        +'<a href="'+va.link+'" target="_blank" rel="noopener sponsored" class="scard scard-ad" style="--cc:#8b5cf6;grid-column:span 2">'
-        +'<span class="stag-sp">SPONSORED</span>'
-        +'<div style="display:flex;align-items:center;gap:10px;width:100%">'
-        +'<div class="sico2" style="background:'+va.bg+';flex-shrink:0">'+va.ico+'</div>'
-        +'<div style="flex:1;min-width:0">'
-        +'<div class="sname">'+va.name+' — '+va.disc+'</div>'
-        +'<div class="sdesc">'+va.price+va.unit+' · '+va.tags.map(function(t){return t.l;}).join(' · ')+'</div>'
-        +'</div>'
-        +'<div style="font-size:11px;font-weight:800;padding:6px 12px;border-radius:10px;background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;white-space:nowrap;flex-shrink:0">立即获取</div>'
-        +'</div></a></div>';
-    }
   });
   main.innerHTML=html;
 }
@@ -1272,85 +1188,6 @@ function fetchWeather(){
 // ── 热搜 ──
 function fetchHot(){}
 
-// ── 底部 VPN 推广条 ──
-function initVpnCta(){
-  var bar=document.getElementById('vcta');
-  if(!bar||!VPN_AFF.length)return;
-  if(gl('vcta-d')){
-    var t=parseInt(gl('vcta-d')||'0');
-    if(Date.now()-t<86400000)return; // 24小时内关闭过就不再显示
-  }
-  var v=VPN_AFF[0];
-  bar.innerHTML='<div class="vcta-ico" style="background:'+v.bg+'">'+v.ico+'</div>'
-    +'<div class="vcta-txt"><div class="vcta-nm">'+v.name+' — '+v.disc+'</div>'
-    +'<div class="vcta-sub">'+v.price+v.unit+' · 翻墙稳定首选 · 30天退款</div></div>'
-    +'<a class="vcta-btn" href="'+v.link+'" target="_blank" rel="noopener sponsored">立即抢购</a>'
-    +'<button class="vcta-dis" onclick="closeVpnCta()">✕</button>';
-  setTimeout(function(){bar.classList.add('show');},3500);
-}
-function closeVpnCta(){
-  var bar=document.getElementById('vcta');
-  if(bar)bar.classList.remove('show');
-  sl('vcta-d',String(Date.now()));
-}
-window.closeVpnCta=closeVpnCta;
-
-// ── 广告位：Adsterra 优先，加载失败自动显示联盟横幅 ──
-function renderAffBars(){
-  // ── 728×90 bar（桌面）──
-  var bar=document.getElementById('affBar');
-  if(bar){
-    // 联盟横幅（默认可见）
-    var affH='<div class="aff-bar" id="affBarInner"><div class="aff-bar-ttl">🔥 推荐VPN</div><div class="aff-bar-items">';
-    VPN_AFF.forEach(function(v){
-      affH+='<a class="aff-bar-it" href="'+v.link+'" target="_blank" rel="noopener sponsored">'
-        +'<span class="aff-bar-ico">'+v.ico+'</span>'
-        +'<span class="aff-bar-nm">'+v.name+'</span>'
-        +'<span class="aff-bar-disc">'+v.disc+'</span>'
-        +'</a>';
-    });
-    affH+='</div></div>';
-    bar.innerHTML=affH;
-    // Adsterra 728×90（隐藏，加载成功后替换）
-    var adWrap=document.createElement('div');
-    adWrap.id='adstrBar';adWrap.style.cssText='display:none;justify-content:center;align-items:center;';
-    var sc1=document.createElement('script');
-    sc1.text="atOptions={'key':'b690053fb9e3b2d86118acf00a779f6e','format':'iframe','height':90,'width':728,'params':{}};";
-    var sc2=document.createElement('script');sc2.src='https://www.highperformanceformat.com/b690053fb9e3b2d86118acf00a779f6e/invoke.js';
-    adWrap.appendChild(sc1);adWrap.appendChild(sc2);bar.appendChild(adWrap);
-    setTimeout(function(){
-      if(adWrap.querySelector('iframe')){
-        var inner=document.getElementById('affBarInner');if(inner)inner.style.display='none';
-        adWrap.style.display='flex';
-      }
-    },2800);
-  }
-  // ── 300×250 box ──
-  var box=document.getElementById('affBox');
-  if(box&&VPN_AFF.length){
-    // Adsterra 300×250（隐藏，加载成功后显示在联盟卡上方）
-    var adBox=document.createElement('div');
-    adBox.id='adstrBox';adBox.style.cssText='display:none;justify-content:center;margin-bottom:12px;';
-    var bs1=document.createElement('script');
-    bs1.text="atOptions={'key':'a370265a452f88db1b676535bef09767','format':'iframe','height':250,'width':300,'params':{}};";
-    var bs2=document.createElement('script');bs2.src='https://www.highperformanceformat.com/a370265a452f88db1b676535bef09767/invoke.js';
-    adBox.appendChild(bs1);adBox.appendChild(bs2);box.appendChild(adBox);
-    setTimeout(function(){if(adBox.querySelector('iframe')){adBox.style.display='flex';}},2800);
-    // 联盟卡（始终显示）
-    var v=VPN_AFF[0];
-    var tags='';v.tags.forEach(function(t){tags+='<span class="vtag vtag-'+t.c+'">'+t.l+'</span>';});
-    var card=document.createElement('div');
-    card.innerHTML='<a class="aff-box-card" href="'+v.link+'" target="_blank" rel="noopener sponsored">'
-      +'<div class="aff-box-disc">'+v.disc+'</div>'
-      +'<div class="aff-box-top"><div class="aff-box-ico" style="background:'+v.bg+'">'+v.ico+'</div>'
-      +'<div><div class="aff-box-nm">'+v.name+'</div><div class="aff-box-stars">'+v.stars+'</div></div></div>'
-      +'<div class="vpntags">'+tags+'</div>'
-      +'<div class="aff-box-price"><span class="aff-box-p">'+v.price+'</span><span class="aff-box-pu">'+v.unit+'</span><span class="aff-box-po">'+v.old+'</span></div>'
-      +'<span class="aff-box-cta">立即获取 '+v.disc+' 折扣 →</span>'
-      +'</a>';
-    box.appendChild(card);
-  }
-}
 
 // ── 星空 ──
 function initStars(){
@@ -1478,8 +1315,6 @@ function init(){
   applyThm(curThm);
   fetchWeather();
   fetchHot();
-  renderAffBars();
-  initVpnCta();
   initStars();
 }
 
