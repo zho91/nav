@@ -468,12 +468,12 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
 <script>
 // ── 数据 ──────────────────────────────────────────
 var ENG=[
-  {n:"Google",u:"https://www.google.com/search?q="},
-  {n:"Bing",u:"https://www.bing.com/search?q="},
-  {n:"百度",u:"https://www.baidu.com/s?wd="},
-  {n:"GitHub",u:"https://github.com/search?q="},
-  {n:"YouTube",u:"https://www.youtube.com/results?search_query="},
-  {n:"B站",u:"https://search.bilibili.com/all?keyword="},
+  {n:"Google",u:"https://www.google.com/search?q=",h:"https://www.google.com"},
+  {n:"Bing",u:"https://www.bing.com/search?q=",h:"https://www.bing.com"},
+  {n:"百度",u:"https://www.baidu.com/s?wd=",h:"https://www.baidu.com"},
+  {n:"GitHub",u:"https://github.com/search?q=",h:"https://github.com"},
+  {n:"YouTube",u:"https://www.youtube.com/results?search_query=",h:"https://www.youtube.com"},
+  {n:"B站",u:"https://search.bilibili.com/all?keyword=",h:"https://www.bilibili.com"},
 ];
 var CATS=[
   {name:"⭐ 常用",sites:[
@@ -709,7 +709,7 @@ function renderEng(){
     return '<button class="ebtn'+(i===activeEng?' on':'')+'" onclick="setEng('+i+')">'+e.n+'</button>';
   }).join('');
 }
-function setEng(i){activeEng=i;sl('ne',i);renderEng();}
+function setEng(i){activeEng=i;sl('ne',i);renderEng();window.open(ENG[i].h,'_blank');}
 window.setEng=setEng;
 
 // ── 分类 pills ──
