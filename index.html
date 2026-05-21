@@ -1157,19 +1157,25 @@ function fetchWeather(){
 }
 
 // ── 热搜 ──
-function fetchHot(){
-  fetch('https://api.vvhan.com/api/hotlist?type=wbHot').then(function(r){return r.json();}).then(function(d){
-    if(!d.success||!d.data||!d.data.length)return;
-    var items=d.data.slice(0,15);
+var HOT_APIS=[
+  {url:'https://tenapi.cn/v2/weibohot',parse:function(d){return d.code===200&&d.data?d.data.map(function(it){return{title:it.name,url:it.url};}):null;}},
+  {url:'https://api.vvhan.com/api/hotlist?type=wbHot',parse:function(d){return d.success&&d.data?d.data.map(function(it){return{title:it.title,url:it.url};}):null;}},
+];
+function tryFetchHot(idx){
+  if(idx>=HOT_APIS.length)return;
+  var api=HOT_APIS[idx];
+  fetch(api.url).then(function(r){return r.json();}).then(function(d){
+    var items=api.parse(d);
+    if(!items||!items.length)throw 0;
     var html='<span class="hot-lbl">🔥 微博热搜</span>';
-    items.forEach(function(it,i){
-      var url=it.url||('https://s.weibo.com/weibo?q='+encodeURIComponent(it.title));
-      html+='<a class="hot-it" href="'+escHtml(url)+'" target="_blank" rel="noopener"><span class="hot-n'+(i<3?' t3':'')+'">'+(i+1)+'</span>'+escHtml(it.title)+'</a>';
+    items.slice(0,15).forEach(function(it,i){
+      html+='<a class="hot-it" href="'+escHtml(it.url||'#')+'" target="_blank" rel="noopener"><span class="hot-n'+(i<3?' t3':'')+'">'+( i+1)+'</span>'+escHtml(it.title)+'</a>';
     });
     document.getElementById('hotIn').innerHTML=html;
     document.getElementById('hotbar').style.display='block';
-  }).catch(function(){});
+  }).catch(function(){tryFetchHot(idx+1);});
 }
+function fetchHot(){tryFetchHot(0);}
 
 // ── 主题 ──
 var THEMES={
@@ -1209,11 +1215,17 @@ document.addEventListener('click',function(e){
 window.applyThm=applyThm;window.toggleThm=toggleThm;
 
 // ── 资讯热点 ──
+function mkApis(t,v){
+  return [
+    {url:'https://tenapi.cn/v2/'+t,parse:function(d){return d.code===200&&d.data?d.data.map(function(it){return{title:it.name,url:it.url};}):null;}},
+    {url:'https://api.vvhan.com/api/hotlist?type='+v,parse:function(d){return d.success&&d.data?d.data.map(function(it){return{title:it.title,url:it.url};}):null;}},
+  ];
+}
 var NEWS_SRC={
-  wb:{n:'微博',api:'https://api.vvhan.com/api/hotlist?type=wbHot'},
-  zh:{n:'知乎',api:'https://api.vvhan.com/api/hotlist?type=zhihuHot'},
-  tt:{n:'头条',api:'https://api.vvhan.com/api/hotlist?type=toutiaoNews'},
-  bd:{n:'百度',api:'https://api.vvhan.com/api/hotlist?type=baiduHot'},
+  wb:{n:'微博',apis:mkApis('weibohot','wbHot')},
+  zh:{n:'知乎',apis:mkApis('zhihuhot','zhihuHot')},
+  bd:{n:'百度',apis:mkApis('baiduhot','baiduHot')},
+  tt:{n:'头条',apis:mkApis('toutiaohot','toutiaoNews')},
 };
 var newsCache={};var curNewsTab='wb';
 function renderNewsTabs(){
@@ -1223,19 +1235,27 @@ function renderNewsTabs(){
   });
   document.getElementById('ntabs').innerHTML=html;
 }
-function switchNewsTab(k){
-  curNewsTab=k;renderNewsTabs();loadNews(k);
+function switchNewsTab(k){curNewsTab=k;renderNewsTabs();loadNews(k);}
+function tryLoadNews(k,idx){
+  var list=document.getElementById('newsList');
+  var apis=NEWS_SRC[k].apis;
+  if(idx>=apis.length){
+    if(list)list.innerHTML='<div class="nws-load" style="color:var(--rd);cursor:pointer" onclick="newsCache={};loadNews(\''+k+'\')">⚠ 加载失败，点此重试</div>';
+    return;
+  }
+  fetch(apis[idx].url).then(function(r){return r.json();}).then(function(d){
+    var items=apis[idx].parse(d);
+    if(!items||!items.length)throw 0;
+    newsCache[k]=items.slice(0,20);
+    renderNewsList(newsCache[k]);
+  }).catch(function(){tryLoadNews(k,idx+1);});
 }
 function loadNews(k){
   var list=document.getElementById('newsList');
   if(!list)return;
   if(newsCache[k]){renderNewsList(newsCache[k]);return;}
   list.innerHTML='<div class="nws-load">⏳ 加载中...</div>';
-  fetch(NEWS_SRC[k].api).then(function(r){return r.json();}).then(function(d){
-    if(!d.success||!d.data)throw 0;
-    newsCache[k]=d.data.slice(0,20);
-    renderNewsList(newsCache[k]);
-  }).catch(function(){list.innerHTML='<div class="nws-load" style="color:var(--rd)">加载失败，点击重试</div>';});
+  tryLoadNews(k,0);
 }
 function renderNewsList(items){
   var list=document.getElementById('newsList');if(!list)return;
