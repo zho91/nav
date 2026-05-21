@@ -1159,14 +1159,15 @@ function fetchWeather(){
 // ── 热搜 ──
 var PROXY='https://api.allorigins.win/raw?url=';
 var PROXY2='https://corsproxy.io/?';
+var RAW='https://raw.githubusercontent.com/zho91/nav/main/data/';
 function mkParseTen(d){return d.code===200&&d.data?d.data.map(function(it){return{title:it.name,url:it.url};}):null;}
 function mkParseVv(d){return d.success&&d.data?d.data.map(function(it){return{title:it.title,url:it.url};}):null;}
 var HOT_APIS=[
+  {url:RAW+'wb.json',parse:mkParseTen},
   {url:'https://tenapi.cn/v2/weibohot',parse:mkParseTen},
   {url:'https://api.vvhan.com/api/hotlist?type=wbHot',parse:mkParseVv},
   {url:PROXY+encodeURIComponent('https://tenapi.cn/v2/weibohot'),parse:mkParseTen},
   {url:PROXY2+encodeURIComponent('https://tenapi.cn/v2/weibohot'),parse:mkParseTen},
-  {url:PROXY+encodeURIComponent('https://api.vvhan.com/api/hotlist?type=wbHot'),parse:mkParseVv},
 ];
 function tryFetchHot(idx){
   if(idx>=HOT_APIS.length)return;
@@ -1222,22 +1223,22 @@ document.addEventListener('click',function(e){
 window.applyThm=applyThm;window.toggleThm=toggleThm;
 
 // ── 资讯热点 ──
-function mkApis(t,v){
+function mkApis(t,v,f){
   var tenUrl='https://tenapi.cn/v2/'+t;
   var vvUrl='https://api.vvhan.com/api/hotlist?type='+v;
   return [
+    {url:RAW+f,parse:mkParseTen},
     {url:tenUrl,parse:mkParseTen},
     {url:vvUrl,parse:mkParseVv},
     {url:PROXY+encodeURIComponent(tenUrl),parse:mkParseTen},
     {url:PROXY2+encodeURIComponent(tenUrl),parse:mkParseTen},
-    {url:PROXY+encodeURIComponent(vvUrl),parse:mkParseVv},
   ];
 }
 var NEWS_SRC={
-  wb:{n:'微博',apis:mkApis('weibohot','wbHot')},
-  zh:{n:'知乎',apis:mkApis('zhihuhot','zhihuHot')},
-  bd:{n:'百度',apis:mkApis('baiduhot','baiduHot')},
-  tt:{n:'头条',apis:mkApis('toutiaohot','toutiaoNews')},
+  wb:{n:'微博',apis:mkApis('weibohot','wbHot','wb.json')},
+  zh:{n:'知乎',apis:mkApis('zhihuhot','zhihuHot','zh.json')},
+  bd:{n:'百度',apis:mkApis('baiduhot','baiduHot','bd.json')},
+  tt:{n:'头条',apis:mkApis('toutiaohot','toutiaoNews','tt.json')},
 };
 var newsCache={};var curNewsTab='wb';
 function renderNewsTabs(){
