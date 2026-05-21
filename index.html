@@ -105,9 +105,11 @@ em.hl{font-style:normal;color:#f472b6;background:rgba(244,114,182,.12);padding:0
 .empty{text-align:center;padding:70px 20px;color:var(--dim)}
 .empty .big{font-size:44px;margin-bottom:10px}
 /* TOOLBOX */
-.tbx{position:fixed;top:0;right:-350px;width:320px;height:100vh;z-index:500;background:rgba(8,14,26,.97);border-left:1px solid var(--bd);backdrop-filter:blur(22px);display:flex;flex-direction:column;transition:right .3s cubic-bezier(.4,0,.2,1);box-shadow:-18px 0 50px rgba(0,0,0,.6)}
-.tbx.open{right:0}
-.tbx-hd{padding:16px 16px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.tbx{position:fixed;bottom:80px;right:16px;width:340px;max-height:calc(100vh - 96px);z-index:500;background:rgba(8,14,26,.97);border:1px solid var(--bd);backdrop-filter:blur(22px);display:flex;flex-direction:column;border-radius:16px;box-shadow:0 24px 64px rgba(0,0,0,.7),0 0 0 1px rgba(139,92,246,.12);opacity:0;transform:scale(.94) translateY(12px);pointer-events:none;transition:opacity .22s,transform .26s cubic-bezier(.34,1.56,.64,1)}
+.tbx.open{opacity:1;transform:scale(1) translateY(0);pointer-events:auto}
+.tbx.dragging{transition:none;cursor:grabbing}
+.tbx-hd{padding:14px 14px 0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;cursor:grab}
+.tbx-hd:active{cursor:grabbing}
 .tbx-title{font-size:14px;font-weight:700;color:var(--txt)}
 .tbx-x{width:28px;height:28px;border-radius:7px;background:var(--card);border:1px solid var(--bd);color:var(--dim);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px}
 .tbx-x:hover{background:var(--hov);color:var(--txt)}
@@ -276,7 +278,7 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
 @media(max-width:600px){
 .grid{grid-template-columns:repeat(2,1fr)}
 .kbhint{display:none}
-.tbx{width:100%;right:-100%}
+.tbx{width:calc(100vw - 20px);right:10px;left:10px;bottom:80px;max-height:72vh}
 .vpncards{grid-template-columns:repeat(2,1fr)}
 /* hero 压缩 */
 .hero{padding:8px 14px 3px}
@@ -993,7 +995,6 @@ function renderSites(){
 // ── TOOLBOX ──
 function openTbx(tab){
   document.getElementById('tbx').classList.add('open');
-  document.getElementById('ovl').classList.add('on');
   if(tab){
     var tabs=['note','todo','pomo','bm','pwd','qr','cx','news'];
     var idx=tabs.indexOf(tab);
@@ -1001,7 +1002,7 @@ function openTbx(tab){
     switchTab(tab,btn||null);
   }
 }
-function closeTbx(){document.getElementById('tbx').classList.remove('open');document.getElementById('ovl').classList.remove('on');}
+function closeTbx(){document.getElementById('tbx').classList.remove('open');}
 function toggleTbx(){document.getElementById('tbx').classList.contains('open')?closeTbx():openTbx('note');}
 function switchTab(id,btn){
   document.querySelectorAll('.tpanel').forEach(function(p){p.classList.remove('on');});
@@ -1011,6 +1012,57 @@ function switchTab(id,btn){
   if(btn)btn.classList.add('on');
 }
 window.openTbx=openTbx;window.closeTbx=closeTbx;window.toggleTbx=toggleTbx;window.switchTab=switchTab;
+
+// ── TOOLBOX DRAG ──
+(function(){
+  var tbx=document.getElementById('tbx');
+  var hd=tbx.querySelector('.tbx-hd');
+  var dragging=false,sx=0,sy=0;
+  function startDrag(cx,cy){
+    var rect=tbx.getBoundingClientRect();
+    tbx.style.left=rect.left+'px';
+    tbx.style.top=rect.top+'px';
+    tbx.style.right='auto';
+    tbx.style.bottom='auto';
+    sx=cx-rect.left;
+    sy=cy-rect.top;
+    dragging=true;
+    tbx.classList.add('dragging');
+    document.body.style.userSelect='none';
+  }
+  function moveDrag(cx,cy){
+    if(!dragging)return;
+    var x=Math.max(0,Math.min(window.innerWidth-tbx.offsetWidth,cx-sx));
+    var y=Math.max(0,Math.min(window.innerHeight-tbx.offsetHeight,cy-sy));
+    tbx.style.left=x+'px';
+    tbx.style.top=y+'px';
+  }
+  function endDrag(){
+    if(!dragging)return;
+    dragging=false;
+    tbx.classList.remove('dragging');
+    document.body.style.userSelect='';
+  }
+  hd.addEventListener('mousedown',function(e){
+    if(e.target.closest('.tbx-x'))return;
+    startDrag(e.clientX,e.clientY);
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove',function(e){moveDrag(e.clientX,e.clientY);});
+  document.addEventListener('mouseup',endDrag);
+  hd.addEventListener('touchstart',function(e){
+    if(e.target.closest('.tbx-x'))return;
+    var t=e.touches[0];
+    startDrag(t.clientX,t.clientY);
+  },{passive:true});
+  document.addEventListener('touchmove',function(e){
+    if(!dragging)return;
+    var t=e.touches[0];
+    moveDrag(t.clientX,t.clientY);
+    e.preventDefault();
+  },{passive:false});
+  document.addEventListener('touchend',endDrag);
+})();
 
 // ── NOTE ──
 function initNote(){
