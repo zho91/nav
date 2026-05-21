@@ -231,6 +231,44 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
 .vpndisc{position:absolute;top:9px;right:9px;font-size:9px;font-weight:800;padding:2px 7px;border-radius:5px;background:var(--rd);color:#fff;letter-spacing:.4px}
 .support-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 14px;border-radius:20px;background:linear-gradient(135deg,rgba(236,72,153,.13),rgba(139,92,246,.13));border:1px solid rgba(236,72,153,.28);color:#f9a8d4;font-size:12px;font-weight:700;text-decoration:none;transition:.2s;margin-top:9px}
 .support-btn:hover{background:linear-gradient(135deg,rgba(236,72,153,.25),rgba(139,92,246,.25));border-color:rgba(236,72,153,.5);transform:scale(1.04)}
+/* Search history */
+.sbox{position:relative}
+.srec{position:absolute;top:calc(100% + 8px);left:0;right:0;background:rgba(8,14,26,.98);border:1px solid var(--bd);border-radius:14px;padding:11px 13px;z-index:200;backdrop-filter:blur(22px);display:none;box-shadow:0 12px 32px rgba(0,0,0,.5)}
+.srec.on{display:block}
+.srec-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.srec-t{font-size:10px;color:var(--dim);font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.srec-clr{font-size:10px;color:var(--dim);cursor:pointer;background:none;border:none;font-family:inherit;padding:0}
+.srec-clr:hover{color:var(--rd)}
+.srec-chips{display:flex;flex-wrap:wrap;gap:5px}
+.srec-chip{font-size:12px;padding:4px 10px;border-radius:8px;background:var(--card);border:1px solid var(--bd);color:var(--dim);cursor:pointer;font-family:inherit;transition:.15s;display:flex;align-items:center;gap:4px}
+.srec-chip:hover{border-color:rgba(139,92,246,.4);color:var(--txt);background:var(--hov)}
+/* Password generator */
+.pwd-out{font-family:monospace;font-size:13px;background:rgba(0,0,0,.3);border:1px solid var(--bd);border-radius:10px;padding:11px 13px;color:var(--txt);word-break:break-all;min-height:44px;line-height:1.6;cursor:pointer;transition:.2s;margin-bottom:9px;letter-spacing:.5px}
+.pwd-out:hover{border-color:rgba(139,92,246,.4)}
+.pwd-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.pwd-opt{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--dim);cursor:pointer;user-select:none}
+.pwd-opt input[type=checkbox]{accent-color:var(--pu);width:15px;height:15px;cursor:pointer}
+.pwd-len{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--dim);margin-bottom:10px}
+.pwd-range{flex:1;accent-color:var(--pu)}
+.pwd-lbl{min-width:28px;text-align:right;color:var(--txt);font-weight:700}
+.tool-btn{width:100%;padding:9px;border-radius:10px;background:linear-gradient(135deg,var(--pu),var(--pk));color:#fff;border:none;cursor:pointer;font-size:13px;font-weight:700;font-family:inherit;transition:.18s}
+.tool-btn:hover{opacity:.88}
+.tool-sec{background:rgba(15,23,42,.7);border:1px solid var(--bd);border-radius:12px;padding:13px;margin-bottom:10px}
+.tool-lbl{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+/* QR code */
+.qr-img-wrap{width:150px;height:150px;border-radius:12px;background:#fff;display:flex;align-items:center;justify-content:center;margin:10px auto;overflow:hidden}
+.qr-img-wrap img{width:100%;height:100%;object-fit:contain}
+.qr-hint{text-align:center;font-size:11px;color:var(--dim);margin-top:6px}
+/* Currency */
+.cx-row{display:flex;gap:7px;align-items:center;margin-bottom:8px}
+.cx-inp{flex:1;background:rgba(255,255,255,.05);border:1.5px solid var(--bd);border-radius:9px;padding:8px 11px;color:var(--txt);font-size:15px;font-family:monospace;outline:none;transition:.2s;width:100%}
+.cx-inp:focus{border-color:var(--pu)}
+.cx-sel{background:rgba(15,23,42,.9);border:1px solid var(--bd);border-radius:9px;padding:8px 10px;color:var(--txt);font-size:13px;font-family:inherit;outline:none;cursor:pointer;flex-shrink:0}
+.cx-res{background:rgba(0,0,0,.2);border-radius:10px;padding:11px;margin-top:5px}
+.cx-item{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:13px}
+.cx-item:last-child{border-bottom:none}
+.cx-flag{color:var(--dim)}
+.cx-val{color:var(--txt);font-weight:700;font-family:monospace}
 @media(max-width:600px){.grid{grid-template-columns:repeat(2,1fr)}.logo{font-size:32px}.kbhint{display:none}.tbx{width:100%;right:-100%}.topbar,.srch-wrap,.tbar,.pillwrap,.main{padding-left:14px;padding-right:14px}.hdr{padding:18px 14px 10px}.vpncards{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
@@ -245,11 +283,14 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
     <span class="tbx-title">🧰 工具箱</span>
     <button class="tbx-x" onclick="closeTbx()">✕</button>
   </div>
-  <div class="ttabs">
+  <div class="ttabs" style="flex-wrap:wrap">
     <button class="ttab on" onclick="switchTab('note',this)">📝 快记</button>
     <button class="ttab" onclick="switchTab('todo',this)">✅ 待办</button>
     <button class="ttab" onclick="switchTab('pomo',this)">⏱ 番茄</button>
     <button class="ttab" onclick="switchTab('bm',this)">🔖 收藏</button>
+    <button class="ttab" onclick="switchTab('pwd',this)">🔑 密码</button>
+    <button class="ttab" onclick="switchTab('qr',this)">📷 二维码</button>
+    <button class="ttab" onclick="switchTab('cx',this)">💱 汇率</button>
   </div>
   <div class="tbody">
     <!-- NOTE -->
@@ -306,6 +347,53 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
       </div>
       <div class="bmlist" id="bmlist"></div>
     </div>
+    <!-- PASSWORD -->
+    <div class="tpanel" id="tp-pwd">
+      <div class="tool-sec">
+        <div class="tool-lbl">生成密码</div>
+        <div class="pwd-out" id="pwdOut" onclick="copyPwd()" title="点击复制">点击生成按钮</div>
+        <div class="pwd-len">
+          <span>长度</span>
+          <input class="pwd-range" type="range" id="pwdLen" min="8" max="32" value="16" oninput="document.getElementById('pwdLbl').textContent=this.value;genPwd()">
+          <span class="pwd-lbl" id="pwdLbl">16</span>
+        </div>
+        <div class="pwd-opts">
+          <label class="pwd-opt"><input type="checkbox" id="pwdUpper" checked onchange="genPwd()"> 大写字母 A-Z</label>
+          <label class="pwd-opt"><input type="checkbox" id="pwdLower" checked onchange="genPwd()"> 小写字母 a-z</label>
+          <label class="pwd-opt"><input type="checkbox" id="pwdNum" checked onchange="genPwd()"> 数字 0-9</label>
+          <label class="pwd-opt"><input type="checkbox" id="pwdSym" onchange="genPwd()"> 符号 !@#$%</label>
+        </div>
+        <button class="tool-btn" onclick="genPwd()">🔑 生成新密码</button>
+      </div>
+    </div>
+    <!-- QR CODE -->
+    <div class="tpanel" id="tp-qr">
+      <div class="tool-sec">
+        <div class="tool-lbl">二维码生成</div>
+        <input class="bminput" id="qrInput" placeholder="输入文字或网址..." maxlength="500" oninput="genQR()">
+        <div class="qr-img-wrap" id="qrWrap"><span style="color:#94a3b8;font-size:12px">输入内容后生成</span></div>
+        <div class="qr-hint">点击二维码长按保存</div>
+      </div>
+    </div>
+    <!-- CURRENCY -->
+    <div class="tpanel" id="tp-cx">
+      <div class="tool-sec">
+        <div class="tool-lbl">汇率换算</div>
+        <div class="cx-row">
+          <input class="cx-inp" id="cxAmt" type="number" value="100" oninput="calcCx()">
+          <select class="cx-sel" id="cxFrom" onchange="calcCx()">
+            <option value="USD">USD $</option>
+            <option value="CNY" selected>CNY ¥</option>
+            <option value="EUR">EUR €</option>
+            <option value="HKD">HKD $</option>
+            <option value="JPY">JPY ¥</option>
+            <option value="GBP">GBP £</option>
+          </select>
+        </div>
+        <div class="cx-res" id="cxRes"></div>
+        <div style="font-size:10px;color:var(--dim);margin-top:8px;text-align:right">汇率仅供参考</div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -342,6 +430,10 @@ kbd{font-size:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,25
     <span class="sico">🔍</span>
     <input type="text" id="q" placeholder="搜索站内 / Enter 跳转全网..." autocomplete="off" spellcheck="false">
     <button class="sclr" id="sclr" onclick="clearQ()">✕</button>
+    <div class="srec" id="srec">
+      <div class="srec-hd"><span class="srec-t">🕐 最近搜索</span><button class="srec-clr" onclick="clearHistory()">清除</button></div>
+      <div class="srec-chips" id="srecChips"></div>
+    </div>
   </div>
   <div class="engrow" id="engrow"></div>
 </div>
@@ -512,6 +604,18 @@ var CATS=[
     {n:"拼多多",u:"https://www.pinduoduo.com",e:"🥑",d:"拼团特价购物"},
     {n:"1688",u:"https://www.1688.com",e:"🏭",d:"批发采购平台"},
     {n:"什么值得买",u:"https://www.smzdm.com",e:"💰",d:"购物优惠推荐"},
+  ]},
+  {name:"💰 财经/投资",sites:[
+    {n:"TradingView",u:"https://www.tradingview.com",e:"📈",d:"全球专业图表分析",t:"hot"},
+    {n:"CoinMarketCap",u:"https://coinmarketcap.com",e:"₿",d:"加密货币行情追踪",t:"hot"},
+    {n:"Yahoo Finance",u:"https://finance.yahoo.com",e:"💹",d:"全球金融数据中心"},
+    {n:"Bloomberg",u:"https://www.bloomberg.com",e:"🔵",d:"彭博财经资讯"},
+    {n:"同花顺",u:"https://www.10jqka.com.cn",e:"📊",d:"A股行情分析"},
+    {n:"东方财富",u:"https://www.eastmoney.com",e:"💴",d:"股票基金资讯"},
+    {n:"Binance",u:"https://www.binance.com",e:"🟡",d:"全球最大加密交易所",t:"hot"},
+    {n:"Investing.com",u:"https://www.investing.com",e:"📉",d:"全球投资数据平台"},
+    {n:"MacroTrends",u:"https://www.macrotrends.net",e:"📐",d:"长周期宏观经济图表"},
+    {n:"Wise",u:"https://wise.com",e:"💸",d:"低费率国际汇款",t:"new"},
   ]},
 ];
 
@@ -866,6 +970,84 @@ function addBm(){
 function delBm(id){bookmarks=bookmarks.filter(function(b){return b.id!==id;});saveBms();renderBms();}
 window.addBm=addBm;window.delBm=delBm;
 
+// ── 搜索历史 ──
+var searchHistory=[];
+try{searchHistory=JSON.parse(gl('sh')||'[]');}catch(e){}
+function saveHistory(q){
+  if(!q||q.length<2)return;
+  searchHistory=searchHistory.filter(function(s){return s!==q;});
+  searchHistory.unshift(q);
+  if(searchHistory.length>8)searchHistory=searchHistory.slice(0,8);
+  sl('sh',JSON.stringify(searchHistory));
+}
+function renderHistory(){
+  var chips=document.getElementById('srecChips');
+  if(!chips)return;
+  if(!searchHistory.length){document.getElementById('srec').classList.remove('on');return;}
+  chips.innerHTML=searchHistory.map(function(s){
+    return '<button class="srec-chip" onclick="fillSearch(\''+escHtml(s).replace(/'/g,"\\'")+'\')">'
+      +'🔍 '+escHtml(s)+'</button>';
+  }).join('');
+}
+function fillSearch(s){
+  var inp=document.getElementById('q');
+  inp.value=s;
+  document.getElementById('srec').classList.remove('on');
+  document.getElementById('sclr').classList.add('on');
+  renderSites();
+}
+function clearHistory(){searchHistory=[];sl('sh','[]');document.getElementById('srec').classList.remove('on');}
+window.fillSearch=fillSearch;window.clearHistory=clearHistory;
+
+// ── 密码生成器 ──
+var CHARS={upper:'ABCDEFGHIJKLMNOPQRSTUVWXYZ',lower:'abcdefghijklmnopqrstuvwxyz',num:'0123456789',sym:'!@#$%^&*()_+-=[]{}|'};
+function genPwd(){
+  var len=parseInt(document.getElementById('pwdLen').value)||16;
+  var pool='';
+  if(document.getElementById('pwdUpper').checked)pool+=CHARS.upper;
+  if(document.getElementById('pwdLower').checked)pool+=CHARS.lower;
+  if(document.getElementById('pwdNum').checked)pool+=CHARS.num;
+  if(document.getElementById('pwdSym').checked)pool+=CHARS.sym;
+  if(!pool)pool=CHARS.lower+CHARS.num;
+  var pwd='';
+  for(var i=0;i<len;i++)pwd+=pool[Math.floor(Math.random()*pool.length)];
+  document.getElementById('pwdOut').textContent=pwd;
+}
+function copyPwd(){
+  var t=document.getElementById('pwdOut').textContent;
+  if(!t||t==='点击生成按钮')return;
+  try{navigator.clipboard.writeText(t).then(function(){showToast('🔑 密码已复制');});}
+  catch(e){showToast('🔑 '+t);}
+}
+window.genPwd=genPwd;window.copyPwd=copyPwd;
+
+// ── 二维码生成 ──
+function genQR(){
+  var val=document.getElementById('qrInput').value.trim();
+  var wrap=document.getElementById('qrWrap');
+  if(!val){wrap.innerHTML='<span style="color:#94a3b8;font-size:12px">输入内容后生成</span>';return;}
+  var url='https://api.qrserver.com/v1/create-qr-code/?size=150x150&data='+encodeURIComponent(val);
+  wrap.innerHTML='<img src="'+url+'" alt="QR" style="width:100%;height:100%;object-fit:contain;border-radius:8px">';
+}
+window.genQR=genQR;
+
+// ── 汇率换算 ──
+var CX_RATES={USD:1,CNY:7.24,EUR:0.92,HKD:7.82,JPY:154.2,GBP:0.79};
+var CX_NAMES={USD:'美元 $',CNY:'人民币 ¥',EUR:'欧元 €',HKD:'港元 $',JPY:'日元 ¥',GBP:'英镑 £'};
+function calcCx(){
+  var amt=parseFloat(document.getElementById('cxAmt').value)||0;
+  var from=document.getElementById('cxFrom').value;
+  var base=amt/CX_RATES[from];
+  var res='';
+  Object.keys(CX_RATES).forEach(function(k){
+    if(k===from)return;
+    var val=(base*CX_RATES[k]).toFixed(k==='JPY'?0:2);
+    res+='<div class="cx-item"><span class="cx-flag">'+CX_NAMES[k]+'</span><span class="cx-val">'+val+'</span></div>';
+  });
+  document.getElementById('cxRes').innerHTML=res||'<span style="color:var(--dim)">请输入金额</span>';
+}
+window.calcCx=calcCx;
+
 // ── Toast ──
 function showToast(msg){
   var t=document.getElementById('toast');
@@ -927,15 +1109,25 @@ function init(){
   renderBms();
 
   var inp=document.getElementById('q');
+  inp.addEventListener('focus',function(){
+    if(!inp.value&&searchHistory.length){renderHistory();document.getElementById('srec').classList.add('on');}
+  });
+  inp.addEventListener('blur',function(){
+    setTimeout(function(){document.getElementById('srec').classList.remove('on');},200);
+  });
   inp.addEventListener('input',function(){
     document.getElementById('sclr').classList.toggle('on',inp.value.length>0);
+    document.getElementById('srec').classList.remove('on');
     renderSites();
   });
   inp.addEventListener('keydown',function(e){
     if(e.key==='Enter'&&inp.value.trim()){
+      saveHistory(inp.value.trim());
       window.open(ENG[activeEng].u+encodeURIComponent(inp.value.trim()),'_blank');
     }
   });
+  genPwd();
+  calcCx();
 }
 
 window.goTop=function(){window.scrollTo({top:0,behavior:'smooth'});};
