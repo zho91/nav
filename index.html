@@ -1155,6 +1155,9 @@ function renderSites(){
       html+='<a href="'+s.u+'" target="_blank" rel="noopener" class="scard" style="animation-delay:'+delay+'ms;--cc:'+cc+'">'+tag+'<div class="sico2" style="background:'+cc+'1a">'+fav(s.u,s.e)+'</div><div class="sinf"><div class="sname">'+nm+'</div><div class="sdesc">'+escHtml(s.d)+'</div></div></a>';
     });
     html+='</div>';
+    if(ci===2&&filtered.length>3){
+      html+='<div style="width:100%;max-width:740px;margin:10px auto;position:relative;z-index:99998;height:35px;overflow:hidden"><iframe data-aa="2438460" src="//acceptable.a-ads.com/2438460/?size=Adaptive" style="border:0;padding:0;width:100%;height:70px;overflow:hidden;display:block;margin:auto;transform:scaleY(0.5);transform-origin:top center;filter:contrast(1.12) saturate(1.08) brightness(1.02);-webkit-filter:contrast(1.12) saturate(1.08) brightness(1.02)" scrolling="no"></iframe></div>';
+    }
   });
   main.innerHTML=html;
 }
